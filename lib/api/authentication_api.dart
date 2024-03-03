@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:cluck_connect/models/authentication_model.dart';
+
 
 class AuthenticationApi {
   static const String baseUrl = 'http://your-api-base-url.com/api/v1';
@@ -35,8 +37,7 @@ class AuthenticationApi {
 
     return jsonDecode(response.body);
   }
-
-  static Future<Map<String, dynamic>> getMyUser(String token) async {
+  static Future<User> getMyUser(String token) async {
     final response = await http.get(
       Uri.parse('$baseUrl/user/me'),
       headers: <String, String>{
@@ -44,6 +45,7 @@ class AuthenticationApi {
       },
     );
 
-    return jsonDecode(response.body);
+    final Map<String, dynamic> userData = jsonDecode(response.body);
+    return User.fromJson(userData['data']);
   }
 }
