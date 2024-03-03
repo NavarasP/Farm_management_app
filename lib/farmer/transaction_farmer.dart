@@ -5,7 +5,7 @@ import 'stockdetails_farmer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class TransactionDetails {
@@ -19,16 +19,21 @@ class TransactionDetails {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: IncomePage(),
     );
   }
 }
 
 class IncomePage extends StatefulWidget {
+  const IncomePage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _IncomePageState createState() => _IncomePageState();
 }
 
@@ -52,38 +57,38 @@ class _IncomePageState extends State<IncomePage> {
       body: Column(
         children: [
           PreferredSize(
-            preferredSize: Size.fromHeight(250.0),
+            preferredSize: const Size.fromHeight(250.0),
             child: AppBar(
               leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.blue),
+                icon: const Icon(Icons.arrow_back, color: Colors.blue),
                 onPressed: () {
                   Navigator.pop(context);
                 },
               ),
               flexibleSpace: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 210.0,
                     child: Image.asset(
                       'assets/trade_appbar.jpg', 
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                 ],
               ),
             ),
           ),
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
               ),
               color: Colors.blue, 
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
+            child: const Padding(
+              padding: EdgeInsets.all(10.0),
               child: Center(
                 child: Text(
                   'Your Income',
@@ -95,7 +100,7 @@ class _IncomePageState extends State<IncomePage> {
               ),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Expanded(
             child: ListView.builder(
               itemCount: transactions.length,
@@ -107,7 +112,7 @@ class _IncomePageState extends State<IncomePage> {
         ],
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -116,15 +121,15 @@ class _IncomePageState extends State<IncomePage> {
         ),
         width: MediaQuery.of(context).size.width * 0.8,
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Color(0xfff3faff),
+            backgroundColor: const Color(0xfff3faff),
             selectedItemColor: Colors.blue,
-            unselectedItemColor: Color(0xff393737),
+            unselectedItemColor: const Color(0xff393737),
             currentIndex: _currentIndex,
             onTap: (int index) {
               setState(() {
@@ -132,7 +137,7 @@ class _IncomePageState extends State<IncomePage> {
                 _navigateToScreen(index);
               });
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',
@@ -165,29 +170,29 @@ class _IncomePageState extends State<IncomePage> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePageFarmer()),
+          MaterialPageRoute(builder: (context) => const HomePageFarmer()),
         );
         break;
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => StockDetailsPage()),
+          MaterialPageRoute(builder: (context) => const StockDetailsPage()),
         );
         break;
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ChatRoomScreen()),
+          MaterialPageRoute(builder: (context) => const ChatRoomScreen()),
         );
         break;
       case 3:
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => IncomePage()));
+            context, MaterialPageRoute(builder: (context) => const IncomePage()));
         break;
       case 4:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProfilePageFarmer()),
+          MaterialPageRoute(builder: (context) => const ProfilePageFarmer()),
         );
         break;
     }
@@ -197,9 +202,10 @@ class _IncomePageState extends State<IncomePage> {
 class TransactionCard extends StatefulWidget {
   final TransactionDetails transaction;
 
-  TransactionCard({required this.transaction});
+  const TransactionCard({super.key, required this.transaction});
 
   @override
+  // ignore: library_private_types_in_public_api
   _TransactionCardState createState() => _TransactionCardState();
 }
 
@@ -210,9 +216,9 @@ class _TransactionCardState extends State<TransactionCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(16.0),
-      color: Color(0xff9fcce1), 
-      shape: RoundedRectangleBorder(
+      margin: const EdgeInsets.all(16.0),
+      color: const Color(0xff9fcce1), 
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(20.0),
         ),
@@ -223,9 +229,9 @@ class _TransactionCardState extends State<TransactionCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Date: ${widget.transaction.datePlaceholder}'),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text('Amount: ₹${widget.transaction.amount.toString()}'),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -242,7 +248,7 @@ class _TransactionCardState extends State<TransactionCard> {
                       child: Center(
                         child: Text(
                           isAcknowledged ? 'Acknowledged' : 'Not Acknowledged',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                           ),
                         ),
@@ -263,7 +269,7 @@ class _TransactionCardState extends State<TransactionCard> {
                       child: Center(
                         child: Text(
                           isCompleted ? 'Complete' : 'Not Complete',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                           ),
                         ),

@@ -265,7 +265,7 @@ class _StockDisplayListState extends State<StockDisplayList> {
 class StockEntryCard extends StatelessWidget {
   final EntryDetails entry;
 
-  StockEntryCard({super.key, required this.entry});
+  const StockEntryCard({super.key, required this.entry});
 
   @override
   Widget build(BuildContext context) {

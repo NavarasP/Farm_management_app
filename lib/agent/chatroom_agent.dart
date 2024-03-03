@@ -6,10 +6,12 @@ import 'transaction_agent.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,13 +19,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: Chatroom(),
+      home: const Chatroom(),
     );
   }
 }
 
 class Chatroom extends StatefulWidget {
+  const Chatroom({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _FarmersPageState createState() => _FarmersPageState();
 }
 
@@ -41,11 +46,11 @@ class _FarmersPageState extends State<Chatroom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(150.0), 
+        preferredSize: const Size.fromHeight(150.0), 
         child: AppBar(
           backgroundColor: Colors.blue, 
           elevation: 0,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20),
@@ -60,7 +65,7 @@ class _FarmersPageState extends State<Chatroom> {
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back, color: Colors.white),
+                      icon: const Icon(Icons.arrow_back, color: Colors.white),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -69,8 +74,8 @@ class _FarmersPageState extends State<Chatroom> {
                         );
                       },
                     ),
-                    SizedBox(width: 20),
-                    Text(
+                    const SizedBox(width: 20),
+                    const Text(
                       'CluckConnect',
                       style: TextStyle(
                         color: Colors.white,
@@ -80,14 +85,14 @@ class _FarmersPageState extends State<Chatroom> {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Container(
                   height: 50, 
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding:
-                      EdgeInsets.symmetric(horizontal: 20), 
+                      const EdgeInsets.symmetric(horizontal: 20), 
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 231, 236, 242),
+                    color: const Color.fromARGB(255, 231, 236, 242),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextField(
@@ -95,7 +100,7 @@ class _FarmersPageState extends State<Chatroom> {
                       hintText: 'Search Farmers...',
                       border: InputBorder.none,
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.search, color: Colors.grey),
+                        icon: const Icon(Icons.search, color: Colors.grey),
                         onPressed: () {
                           print('Search button pressed');
                         },
@@ -103,7 +108,7 @@ class _FarmersPageState extends State<Chatroom> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -117,15 +122,15 @@ class _FarmersPageState extends State<Chatroom> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ChatRoomScreen()),
+                MaterialPageRoute(builder: (context) => const ChatRoomScreen()),
               );
               print('Tapped on farmer: ${farmers[index]}');
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: ListTile(
-                contentPadding: EdgeInsets.all(10),
-                leading: CircleAvatar(
+                contentPadding: const EdgeInsets.all(10),
+                leading: const CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.blue,
                   child: Icon(
@@ -135,17 +140,17 @@ class _FarmersPageState extends State<Chatroom> {
                 ),
                 title: Text(
                   farmers[index],
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                subtitle: Text(
+                subtitle: const Text(
                   'Last message or status', 
                   style: TextStyle(
                     color: Colors.grey,
                   ),
                 ),
-                trailing: Column(
+                trailing: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
@@ -169,7 +174,7 @@ class _FarmersPageState extends State<Chatroom> {
         },
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -178,15 +183,15 @@ class _FarmersPageState extends State<Chatroom> {
         ),
         width: MediaQuery.of(context).size.width * 0.8,
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Color(0xfff3faff),
+            backgroundColor: const Color(0xfff3faff),
             selectedItemColor: Colors.blue,
-            unselectedItemColor: Color(0xff393737),
+            unselectedItemColor: const Color(0xff393737),
             currentIndex: _currentIndex,
             onTap: (int index) {
               setState(() {
@@ -194,7 +199,7 @@ class _FarmersPageState extends State<Chatroom> {
                 _navigateToScreen(index);
               });
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',
@@ -233,13 +238,13 @@ class _FarmersPageState extends State<Chatroom> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AgentStockDisplayPage()),
+          MaterialPageRoute(builder: (context) => const AgentStockDisplayPage()),
         );
         break;
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Chatroom()),
+          MaterialPageRoute(builder: (context) => const Chatroom()),
         );
         break;
       case 3:

@@ -8,10 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 void main() {
-  runApp(ChatRoomApp());
+  runApp(const ChatRoomApp());
 }
 
 class ChatRoomApp extends StatelessWidget {
+  const ChatRoomApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,13 +21,16 @@ class ChatRoomApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ChatRoomScreen(),
+      home: const ChatRoomScreen(),
     );
   }
 }
 
 class ChatRoomScreen extends StatefulWidget {
+  const ChatRoomScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ChatRoomScreenState createState() => _ChatRoomScreenState();
 }
 
@@ -250,7 +255,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ChatRoomScreen()),
+          MaterialPageRoute(builder: (context) => const ChatRoomScreen()),
         );
         break;
       case 3:

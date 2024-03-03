@@ -3,19 +3,23 @@ import 'home_farmer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: LoginPageFarmer(),
     );
   }
 }
 
 class LoginPageFarmer extends StatelessWidget {
+  const LoginPageFarmer({super.key});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -48,11 +52,11 @@ class LoginPageFarmer extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: size.height * 0.03),
-                GlassInputField(
+                const GlassInputField(
                   hintText: "Username",
                 ),
                 SizedBox(height: size.height * 0.03),
-                GlassInputField(
+                const GlassInputField(
                   hintText: "Password",
                   isPassword: true,
                 ),
@@ -73,7 +77,7 @@ class LoginPageFarmer extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HomePageFarmer()),
+                            builder: (context) => const HomePageFarmer()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -105,7 +109,7 @@ class LoginPageFarmer extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegisterScreen()))
+                              builder: (context) => const RegisterScreen()))
                     },
                     child: const Text(
                       "Don't Have an Account? Sign up",
@@ -138,7 +142,7 @@ class GlassInputField extends StatelessWidget {
   final String hintText;
   final bool isPassword;
 
-  GlassInputField({required this.hintText, this.isPassword = false});
+  const GlassInputField({super.key, required this.hintText, this.isPassword = false});
 
   @override
   Widget build(BuildContext context) {

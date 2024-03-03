@@ -5,19 +5,23 @@ import 'stockdetails_farmer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: HomePageFarmer(),
     );
   }
 }
 
 class HomePageFarmer extends StatelessWidget {
+  const HomePageFarmer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,7 +127,7 @@ class HomePageFarmer extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChatRoomScreen()),
+                            builder: (context) => const ChatRoomScreen()),
                       );
                       print('Chat with Farmers clicked');
                     },
@@ -151,7 +155,7 @@ class HomePageFarmer extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProfilePageFarmer()),
+                              builder: (context) => const ProfilePageFarmer()),
                         );
                         print('Profile Management clicked');
                       },
@@ -182,12 +186,12 @@ class RectangleCard extends StatelessWidget {
   final bool customImageSize;
 
   const RectangleCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.imagePath,
     required this.onPressed,
     this.customImageSize = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

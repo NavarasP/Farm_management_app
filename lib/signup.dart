@@ -3,19 +3,23 @@ import 'package:flutter/material.dart';
 
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: RegisterScreen(),
     );
   }
 }
 
 class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -48,16 +52,16 @@ class RegisterScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: size.height * 0.03),
-                GlassInputField(
+                const GlassInputField(
                   hintText: "Username",
                 ),
                 SizedBox(height: size.height * 0.03),
-                GlassInputField(
+                const GlassInputField(
                   hintText: "Password",
                   isPassword: true,
                 ),
                 SizedBox(height: size.height * 0.03),
-                GlassInputField(
+                const GlassInputField(
                   hintText: "Confirm Password",
                   isPassword: true,
                 ),
@@ -116,7 +120,7 @@ class RegisterScreen extends StatelessWidget {
             left: 0,
             child: Image.asset(
               "assets/corner.png",
-              height: 150, // Adjust the height as needed
+              height: 150, 
             ),
           ),
         ],
@@ -129,7 +133,7 @@ class GlassInputField extends StatelessWidget {
   final String hintText;
   final bool isPassword;
 
-  GlassInputField({required this.hintText, this.isPassword = false});
+  const GlassInputField({super.key, required this.hintText, this.isPassword = false});
 
   @override
   Widget build(BuildContext context) {
@@ -138,9 +142,8 @@ class GlassInputField extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 40),
       decoration: BoxDecoration(
         color: const Color(0xffebeaea)
-            .withOpacity(0.7), // Adjust the opacity for the glass effect
+            .withOpacity(0.7), 
         borderRadius: BorderRadius.circular(15),
-        // backdropFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
       ),
       child: TextField(
         obscureText: isPassword,

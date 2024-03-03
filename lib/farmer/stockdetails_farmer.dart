@@ -5,7 +5,7 @@ import 'transaction_farmer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class EntryDetails {
@@ -31,16 +31,21 @@ class EntryDetails {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: StockDetailsPage(),
     );
   }
 }
 
 class StockDetailsPage extends StatefulWidget {
+  const StockDetailsPage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _StockDetailsPageState createState() => _StockDetailsPageState();
 }
 
@@ -74,7 +79,7 @@ class _StockDetailsPageState extends State<StockDetailsPage>
                 delegate: _SliverAppBarDelegate(
                   TabBar(
                     controller: _tabController,
-                    tabs: [
+                    tabs: const [
                       Tab(
                         text: 'Enter Data',
                       ),
@@ -97,7 +102,7 @@ class _StockDetailsPageState extends State<StockDetailsPage>
           ),
         ),
         bottomNavigationBar: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -106,15 +111,15 @@ class _StockDetailsPageState extends State<StockDetailsPage>
           ),
           width: MediaQuery.of(context).size.width * 0.8,
           child: ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-              backgroundColor: Color(0xfff3faff),
+              backgroundColor: const Color(0xfff3faff),
               selectedItemColor: Colors.blue,
-              unselectedItemColor: Color(0xff393737),
+              unselectedItemColor: const Color(0xff393737),
               currentIndex: _currentIndex,
               onTap: (int index) {
                 setState(() {
@@ -122,7 +127,7 @@ class _StockDetailsPageState extends State<StockDetailsPage>
                   _navigateToScreen(index);
                 });
               },
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
                   label: 'Home',
@@ -156,19 +161,19 @@ class _StockDetailsPageState extends State<StockDetailsPage>
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePageFarmer()),
+          MaterialPageRoute(builder: (context) => const HomePageFarmer()),
         );
         break;
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => StockDetailsPage()),
+          MaterialPageRoute(builder: (context) => const StockDetailsPage()),
         );
         break;
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ChatRoomScreen()),
+          MaterialPageRoute(builder: (context) => const ChatRoomScreen()),
         );
         break;
       case 3:
@@ -180,7 +185,7 @@ class _StockDetailsPageState extends State<StockDetailsPage>
       case 4:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProfilePageFarmer()),
+          MaterialPageRoute(builder: (context) => const ProfilePageFarmer()),
         );
         break;
     }
@@ -193,7 +198,7 @@ class _StockDetailsPageState extends State<StockDetailsPage>
         child: Column(
           children: [
             _buildFarmSelector(),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             _buildCurrentBatchDataEntryCard(),
           ],
         ),
@@ -218,7 +223,7 @@ class _StockDetailsPageState extends State<StockDetailsPage>
         child: Column(
           children: [
             InputDecorator(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Select Farm',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue),
@@ -275,7 +280,7 @@ class _StockDetailsPageState extends State<StockDetailsPage>
           child: SizedBox(
             child: DataTable(
               dividerThickness: 1.0,
-              columns: [
+              columns: const [
                 DataColumn(label: Text('Date')),
                 DataColumn(label: Text('Farm No')),
                 DataColumn(label: Text('Import Date')),
@@ -287,7 +292,7 @@ class _StockDetailsPageState extends State<StockDetailsPage>
                 DataColumn(label: Text('Export Date')),
                 DataColumn(label: Text('Actions')),
               ],
-              rows: [], // Empty rows for a fresh table
+              rows: const [], // Empty rows for a fresh table
             ),
           ),
         ),
@@ -312,7 +317,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: Colors.blue,
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: tabBar,
     );
   }
@@ -326,7 +331,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 class FarmFlexibleSpaceBar extends StatelessWidget {
   final String selectedFarm;
 
-  FarmFlexibleSpaceBar({required this.selectedFarm});
+  const FarmFlexibleSpaceBar({super.key, required this.selectedFarm});
 
   @override
   Widget build(BuildContext context) {
@@ -344,12 +349,13 @@ class BatchDataEntryCard extends StatefulWidget {
   final Function(EntryDetails) onSave;
   final String selectedFarm;
 
-  BatchDataEntryCard({
+  const BatchDataEntryCard({super.key, 
     required this.onSave,
     required this.selectedFarm,
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _BatchDataEntryCardState createState() => _BatchDataEntryCardState();
 }
 
@@ -375,7 +381,7 @@ class _BatchDataEntryCardState extends State<BatchDataEntryCard> {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      margin: EdgeInsets.symmetric(vertical: 8.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -384,7 +390,7 @@ class _BatchDataEntryCardState extends State<BatchDataEntryCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Stock Entry",
                   style: TextStyle(
                     fontSize: 20.0,
@@ -394,7 +400,7 @@ class _BatchDataEntryCardState extends State<BatchDataEntryCard> {
                 Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.save, color: Colors.blue),
+                      icon: const Icon(Icons.save, color: Colors.blue),
                       onPressed: () {
                         widget.onSave(currentEntry);
                         setState(() {
@@ -415,7 +421,7 @@ class _BatchDataEntryCardState extends State<BatchDataEntryCard> {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
@@ -424,7 +430,7 @@ class _BatchDataEntryCardState extends State<BatchDataEntryCard> {
                         text: currentEntry.totalChick.toString()),
                     onChanged: (value) =>
                         currentEntry.totalChick = int.tryParse(value) ?? 0,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Total Chick',
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
@@ -432,14 +438,14 @@ class _BatchDataEntryCardState extends State<BatchDataEntryCard> {
                     ),
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Expanded(
                   child: TextField(
                     controller: TextEditingController(
                         text: currentEntry.deceased.toString()),
                     onChanged: (value) =>
                         currentEntry.deceased = int.tryParse(value) ?? 0,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Deceased',
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
@@ -449,33 +455,33 @@ class _BatchDataEntryCardState extends State<BatchDataEntryCard> {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             TextField(
               controller: TextEditingController(text: currentEntry.foodStock),
               onChanged: (value) => currentEntry.foodStock = value,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Food Stock',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue),
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             TextField(
               controller: TextEditingController(text: currentEntry.medicine1),
               onChanged: (value) => currentEntry.medicine1 = value,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Medicine Dose 1',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue),
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             TextField(
               controller: TextEditingController(text: currentEntry.medicine2),
               onChanged: (value) => currentEntry.medicine2 = value,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Medicine Dose 2',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue),

@@ -5,7 +5,7 @@ import '../daily_updates.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class TransactionDetails {
@@ -23,9 +23,11 @@ class TransactionDetails {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: TransactionPageAgent(),
     );
   }
@@ -58,7 +60,10 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 }
 
 class TransactionPageAgent extends StatefulWidget {
+  const TransactionPageAgent({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _TransactionPageState createState() => _TransactionPageState();
 }
 
@@ -66,7 +71,7 @@ class _TransactionPageState extends State<TransactionPageAgent>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _currentIndex = 0;
-  List<TransactionDetails> _transactions = [];
+  final List<TransactionDetails> _transactions = [];
   TransactionDetails _currentTransaction = TransactionDetails(
     farmerName: 'Farmer 1',
     farmNum: 'Farm 1',
@@ -96,7 +101,7 @@ class _TransactionPageState extends State<TransactionPageAgent>
                 floating: false,
                 pinned: true,
                 leading: IconButton(
-                  icon: Icon(Icons.arrow_back, color: Colors.white),
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -113,7 +118,7 @@ class _TransactionPageState extends State<TransactionPageAgent>
                   TabBar(
                     controller: _tabController,
 
-                    tabs: [
+                    tabs: const [
                       Tab(
                         text: 'Trade Entry',
                       ),
@@ -121,7 +126,7 @@ class _TransactionPageState extends State<TransactionPageAgent>
                         text: 'View Details',
                       ),
                     ],
-                    indicator: BoxDecoration(
+                    indicator: const BoxDecoration(
                       color: Colors.blue,
                       
                     ),
@@ -145,7 +150,7 @@ class _TransactionPageState extends State<TransactionPageAgent>
         ),
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -154,15 +159,15 @@ class _TransactionPageState extends State<TransactionPageAgent>
         ),
         width: MediaQuery.of(context).size.width * 0.8,
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Color(0xfff3faff),
+            backgroundColor: const Color(0xfff3faff),
             selectedItemColor: Colors.blue,
-            unselectedItemColor: Color(0xff393737),
+            unselectedItemColor: const Color(0xff393737),
             currentIndex: _currentIndex,
             onTap: (int index) {
               setState(() {
@@ -170,7 +175,7 @@ class _TransactionPageState extends State<TransactionPageAgent>
                 _navigateToScreen(index);
               });
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',
@@ -219,7 +224,7 @@ class _TransactionPageState extends State<TransactionPageAgent>
             decoration: BoxDecoration(
               border: Border.all(width: 1, color: Colors.white),
             ),
-            columns: [
+            columns: const [
               DataColumn(label: Text('Farmer Name')),
               DataColumn(label: Text('Farm Name')),
               DataColumn(label: Text('Date')),
@@ -243,11 +248,11 @@ class _TransactionPageState extends State<TransactionPageAgent>
 
   Widget _buildFarmNameDropDown() {
     return Padding(
-      padding: EdgeInsets.only(top: 16.0), 
+      padding: const EdgeInsets.only(top: 16.0), 
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: InputDecorator(
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Select Farmer',
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
@@ -261,11 +266,11 @@ class _TransactionPageState extends State<TransactionPageAgent>
               items: farmerList.map((String farmer) {
                 return DropdownMenuItem<String>(
                   value: farmer,
-                  child: Container(
+                  child: SizedBox(
                     width: 80.0,
                     child: Text(
                       farmer,
-                      style: TextStyle(fontSize: 14.0),
+                      style: const TextStyle(fontSize: 14.0),
                     ),
                   ),
                 );
@@ -284,11 +289,11 @@ class _TransactionPageState extends State<TransactionPageAgent>
 
   Widget _buildDropDownList() {
     return Padding(
-      padding: EdgeInsets.only(top: 16.0), 
+      padding: const EdgeInsets.only(top: 16.0), 
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: InputDecorator(
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Select Farm',
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.blue),
@@ -302,11 +307,11 @@ class _TransactionPageState extends State<TransactionPageAgent>
               items: farmList.map((String farm) {
                 return DropdownMenuItem<String>(
                   value: farm,
-                  child: Container(
+                  child: SizedBox(
                     width: 80.0, 
                     child: Text(
                       farm,
-                      style: TextStyle(fontSize: 14.0),
+                      style: const TextStyle(fontSize: 14.0),
                     ),
                   ),
                 );
@@ -325,8 +330,8 @@ class _TransactionPageState extends State<TransactionPageAgent>
 
   Widget _buildTransactionCard(TransactionDetails transaction) {
     return Card(
-      color: Color(0xffffffff), 
-      margin: EdgeInsets.all(16.0),
+      color: const Color(0xffffffff), 
+      margin: const EdgeInsets.all(16.0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -335,7 +340,7 @@ class _TransactionPageState extends State<TransactionPageAgent>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Trade',
                   style: TextStyle(
                     fontSize: 20.0,
@@ -343,39 +348,39 @@ class _TransactionPageState extends State<TransactionPageAgent>
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.save, color: Colors.blue),
+                  icon: const Icon(Icons.save, color: Colors.blue),
                   onPressed: () {
                     _saveTransaction(transaction);
                   },
                 ),
               ],
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             TextField(
               controller:
                   TextEditingController(text: transaction.datePlaceholder),
               onChanged: (value) {
                 transaction.datePlaceholder = value;
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Enter Date',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             TextField(
               controller:
                   TextEditingController(text: transaction.amount.toString()),
               onChanged: (value) {
                 transaction.amount = double.tryParse(value) ?? 0.0;
               },
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: InputDecoration(
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              decoration: const InputDecoration(
                 labelText: 'Enter Amount',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
           ],
         ),
       ),
@@ -409,31 +414,31 @@ class _TransactionPageState extends State<TransactionPageAgent>
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePageAgent()),
+          MaterialPageRoute(builder: (context) => const HomePageAgent()),
         );
         break;
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AgentStockDisplayPage()),
+          MaterialPageRoute(builder: (context) => const AgentStockDisplayPage()),
         );
         break;
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Chatroom()),
+          MaterialPageRoute(builder: (context) => const Chatroom()),
         );
         break;
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TransactionPageAgent()),
+          MaterialPageRoute(builder: (context) => const TransactionPageAgent()),
         );
         break;
       case 4:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProfilePageAgent()),
+          MaterialPageRoute(builder: (context) => const ProfilePageAgent()),
         );
         break;
     }

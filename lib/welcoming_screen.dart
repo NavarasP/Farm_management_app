@@ -3,27 +3,25 @@ import 'farmer/login_farmer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: WelcomeScreen(),
   ));
 }
 
 class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          // we will give media query height
-          // double.infinity make it big as my parent allows
-          // while MediaQuery make it big as per the screen
 
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
-            // even space distribution
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -57,7 +55,6 @@ class WelcomeScreen extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  // the login button
                   MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
@@ -67,7 +64,6 @@ class WelcomeScreen extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => LoginPageAgent()));
                     },
-                    // defining the shape
                     shape: RoundedRectangleBorder(
                         side: const BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(50)),
@@ -77,7 +73,6 @@ class WelcomeScreen extends StatelessWidget {
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                   ),
-                  // creating the signup button
                   const SizedBox(height: 20),
                   MaterialButton(
                     minWidth: double.infinity,

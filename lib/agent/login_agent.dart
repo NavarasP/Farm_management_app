@@ -3,19 +3,23 @@ import 'home_agent.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: LoginPageAgent(),
     );
   }
 }
 
 class LoginPageAgent extends StatelessWidget {
+  const LoginPageAgent({super.key});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -24,7 +28,7 @@ class LoginPageAgent extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [Color(0xff57aef0), Color(0xFFFFFFFF)],
                 begin: Alignment.topCenter,
@@ -36,8 +40,8 @@ class LoginPageAgent extends StatelessWidget {
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Text(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: const Text(
                     "LOGIN",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -48,46 +52,46 @@ class LoginPageAgent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: size.height * 0.03),
-                GlassInputField(
+                const GlassInputField(
                   hintText: "Username",
                 ),
                 SizedBox(height: size.height * 0.03),
-                GlassInputField(
+                const GlassInputField(
                   hintText: "Password",
                   isPassword: true,
                 ),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
+                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  child: const Text(
                     "Forgot your password?",
                     style: TextStyle(fontSize: 12, color: Color(0xFF2661FA)),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HomePageAgent()),
+                            builder: (context) => const HomePageAgent()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white, backgroundColor: Colors.blue, shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(80.0),
                       ),
-                      padding: EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(0),
                     ),
                     child: Container(
                       alignment: Alignment.center,
                       height: 50.0,
                       width: size.width * 0.5,
-                      padding: EdgeInsets.all(0),
-                      child: Text(
+                      padding: const EdgeInsets.all(0),
+                      child: const Text(
                         "LOGIN",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -99,15 +103,15 @@ class LoginPageAgent extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: GestureDetector(
                     onTap: () => {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegisterScreen()))
+                              builder: (context) => const RegisterScreen()))
                     },
-                    child: Text(
+                    child: const Text(
                       "Don't Have an Account? Sign up",
                       style: TextStyle(
                         fontSize: 12,
@@ -139,26 +143,26 @@ class GlassInputField extends StatelessWidget {
   final String hintText;
   final bool isPassword;
 
-  GlassInputField({required this.hintText, this.isPassword = false});
+  const GlassInputField({super.key, required this.hintText, this.isPassword = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      margin: EdgeInsets.symmetric(horizontal: 40),
+      margin: const EdgeInsets.symmetric(horizontal: 40),
       decoration: BoxDecoration(
-        color: Color(0xffebeaea)
+        color: const Color(0xffebeaea)
             .withOpacity(0.7), 
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
         obscureText: isPassword,
-        style: TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.black),
+          hintStyle: const TextStyle(color: Colors.black),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         ),
       ),
     );

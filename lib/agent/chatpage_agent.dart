@@ -2,10 +2,12 @@ import 'chatroom_agent.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(ChatRoomApp());
+  runApp(const ChatRoomApp());
 }
 
 class ChatRoomApp extends StatelessWidget {
+  const ChatRoomApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,19 +15,22 @@ class ChatRoomApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ChatRoomScreen(),
+      home: const ChatRoomScreen(),
     );
   }
 }
 
 class ChatRoomScreen extends StatefulWidget {
+  const ChatRoomScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ChatRoomScreenState createState() => _ChatRoomScreenState();
 }
 
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
-  TextEditingController _messageController = TextEditingController();
-  List<String> _messages = [];
+  final TextEditingController _messageController = TextEditingController();
+  final List<String> _messages = [];
 
   void _sendMessage() {
     String message = _messageController.text.trim();
@@ -41,12 +46,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 231, 237, 241),
+      backgroundColor: const Color.fromARGB(255, 231, 237, 241),
       appBar: PreferredSize(
         preferredSize:
             Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.blue,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(20),
@@ -59,7 +64,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back, color: Colors.white),
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -67,7 +72,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     );
                   },
                 ),
-                Text(
+                const Text(
                   'Chat Room',
                   style: TextStyle(
                     color: Colors.white,
@@ -75,7 +80,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
               ],
             ),
           ),
@@ -91,15 +96,15 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 return Align(
                   alignment: Alignment.centerRight,
                   child: Container(
-                    margin: EdgeInsets.all(8.0),
-                    padding: EdgeInsets.all(12.0),
+                    margin: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Text(
                       _messages[index],
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 );
@@ -119,13 +124,13 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     child: Row(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.camera, color: Colors.blue),
+                          icon: const Icon(Icons.camera, color: Colors.blue),
                           onPressed: _takePicture,
                         ),
                         Expanded(
                           child: TextField(
                             controller: _messageController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Type your message...',
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.all(10.0),
@@ -137,7 +142,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send, color: Colors.blue),
+                  icon: const Icon(Icons.send, color: Colors.blue),
                   onPressed: _sendMessage,
                 ),
               ],

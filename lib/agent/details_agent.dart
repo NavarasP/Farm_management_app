@@ -5,7 +5,7 @@ import 'transaction_agent.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class ProfileDetails {
@@ -25,16 +25,21 @@ class AgentDetails {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: ProfilePageAgent(),
     );
   }
 }
 
 class ProfilePageAgent extends StatefulWidget {
+  const ProfilePageAgent({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _ProfilePageAgentState createState() => _ProfilePageAgentState();
 }
 
@@ -261,7 +266,7 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Chatroom()),
+          MaterialPageRoute(builder: (context) => const Chatroom()),
         );
         break;
       case 3:
@@ -273,7 +278,7 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
       case 4:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProfilePageAgent()),
+          MaterialPageRoute(builder: (context) => const ProfilePageAgent()),
         );
         break;
     }
