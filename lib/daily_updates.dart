@@ -68,7 +68,7 @@ class _AgentStockDisplayPageState extends State<AgentStockDisplayPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePageAgent()),
+                  MaterialPageRoute(builder: (context) => const HomePageAgent()),
                 );
               },
             ),
@@ -172,7 +172,7 @@ class _AgentStockDisplayPageState extends State<AgentStockDisplayPage> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePageAgent()),
+          MaterialPageRoute(builder: (context) => const HomePageAgent()),
         );
         break;
       case 1:
@@ -184,19 +184,19 @@ class _AgentStockDisplayPageState extends State<AgentStockDisplayPage> {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Chatroom()),
+          MaterialPageRoute(builder: (context) => const Chatroom()),
         );
         break;
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TransactionPageAgent()),
+          MaterialPageRoute(builder: (context) => const TransactionPageAgent()),
         );
         break;
       case 4:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProfilePageAgent()),
+          MaterialPageRoute(builder: (context) => const ProfilePageAgent()),
         );
         break;
     }
@@ -296,7 +296,7 @@ class StockEntryCard extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 
-                print('Message acknowledged for ${entry.selectedFarm}');
+                debugPrint('Message acknowledged for ${entry.selectedFarm}');
               },
               child: const Text('Acknowledge'),
             ),

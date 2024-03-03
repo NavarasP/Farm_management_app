@@ -49,7 +49,7 @@ class HomePageAgent extends StatelessWidget {
                     icon: const Icon(Icons.menu),
                     onPressed: () {
                       // Handle menu button click
-                      print('Menu button clicked');
+                      debugPrint('Menu button clicked');
                     },
                   ),
                 ],
@@ -116,7 +116,7 @@ class HomePageAgent extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => const AgentStockDisplayPage()),
                         );
-                        print('stock details clicked');
+                        debugPrint('stock details clicked');
                       },
                     ),
                   ),
@@ -129,7 +129,7 @@ class HomePageAgent extends StatelessWidget {
                         context,
                         MaterialPageRoute(builder: (context) => const Chatroom()),
                       );
-                      print('Chat with Farmers clicked');
+                      debugPrint('Chat with Farmers clicked');
                     },
                   ),
                   const SizedBox(width: 10),
@@ -140,9 +140,9 @@ class HomePageAgent extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => TransactionPageAgent()),
+                            builder: (context) => const TransactionPageAgent()),
                       );
-                      print('Financial Transactions clicked');
+                      debugPrint('Financial Transactions clicked');
                     },
                     customImageSize: true,
                   ),
@@ -158,7 +158,7 @@ class HomePageAgent extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => const ProfilePageAgent()),
                         );
-                        print('Profile Management clicked');
+                        debugPrint('Profile Management clicked');
                       },
                       customImageSize: true,
                     ),

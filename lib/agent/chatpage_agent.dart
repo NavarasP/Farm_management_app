@@ -68,7 +68,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Chatroom()),
+                      MaterialPageRoute(builder: (context) => const Chatroom()),
                     );
                   },
                 ),

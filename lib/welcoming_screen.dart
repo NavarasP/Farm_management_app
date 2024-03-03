@@ -62,7 +62,7 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginPageAgent()));
+                              builder: (context) => const LoginPageAgent()));
                     },
                     shape: RoundedRectangleBorder(
                         side: const BorderSide(color: Colors.black),
@@ -81,7 +81,7 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LoginPageFarmer()));
+                              builder: (context) => const LoginPageFarmer()));
                     },
                     color: const Color(0xff0095FF),
                     shape: RoundedRectangleBorder(

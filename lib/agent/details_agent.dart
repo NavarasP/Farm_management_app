@@ -183,10 +183,10 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePageAgent()),
+                    MaterialPageRoute(builder: (context) => const HomePageAgent()),
                   );
-                  print('Profile Details: $profileDetails');
-                  print('Agent Details: $agentDetails');
+                  debugPrint('Profile Details: $profileDetails');
+                  debugPrint('Agent Details: $agentDetails');
                 },
                 child: const Text('Save Details'),
               ),
@@ -254,7 +254,7 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePageAgent()),
+          MaterialPageRoute(builder: (context) => const HomePageAgent()),
         );
         break;
       case 1:
@@ -272,7 +272,7 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TransactionPageAgent()),
+          MaterialPageRoute(builder: (context) => const TransactionPageAgent()),
         );
         break;
       case 4:

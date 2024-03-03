@@ -179,7 +179,7 @@ class _StockDetailsPageState extends State<StockDetailsPage>
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => IncomePage()),
+          MaterialPageRoute(builder: (context) => const IncomePage()),
         );
         break;
       case 4:
@@ -262,7 +262,7 @@ class _StockDetailsPageState extends State<StockDetailsPage>
   Widget _buildCurrentBatchDataEntryCard() {
     return BatchDataEntryCard(
       onSave: (entry) {
-        print('Entry saved: $entry');
+        debugPrint('Entry saved: $entry');
       },
       selectedFarm: selectedFarm,
     );

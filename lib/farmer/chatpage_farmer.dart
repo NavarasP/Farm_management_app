@@ -62,10 +62,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       if (pickedFile != null) {
         _sendMessageWithImage(File(pickedFile.path));
       } else {
-        print("No image selected.");
+        debugPrint("No image selected.");
       }
     } catch (e) {
-      print("Error picking image: $e");
+      debugPrint("Error picking image: $e");
     }
   }
   void _sendMessageWithImage(File imageFile) async {
@@ -75,7 +75,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
         _messages.insert(0, ImageMessage(imageBytes));
       });
         } catch (e) {
-      print("Error sending image: $e");
+      debugPrint("Error sending image: $e");
     }
   }
 
@@ -104,7 +104,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePageFarmer()),
+                      MaterialPageRoute(builder: (context) => const HomePageFarmer()),
                     );
                   },
                 ),
@@ -243,13 +243,13 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePageFarmer()),
+          MaterialPageRoute(builder: (context) => const HomePageFarmer()),
         );
         break;
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => StockDetailsPage()),
+          MaterialPageRoute(builder: (context) => const StockDetailsPage()),
         );
         break;
       case 2:
@@ -261,13 +261,13 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => IncomePage()),
+          MaterialPageRoute(builder: (context) => const IncomePage()),
         );
         break;
       case 4:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProfilePageFarmer()),
+          MaterialPageRoute(builder: (context) => const ProfilePageFarmer()),
         );
         break;
     }

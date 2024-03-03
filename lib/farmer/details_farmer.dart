@@ -234,10 +234,10 @@ class _ProfilePageState extends State<ProfilePageFarmer> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePageFarmer()),
+                    MaterialPageRoute(builder: (context) => const HomePageFarmer()),
                   );
-                  print('Profile Details: $profileDetails');
-                  print('Farm Details: $farmDetails');
+                  debugPrint('Profile Details: $profileDetails');
+                  debugPrint('Farm Details: $farmDetails');
                 },
                 child: const Text('Save Details'),
               ),
@@ -304,13 +304,13 @@ class _ProfilePageState extends State<ProfilePageFarmer> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePageFarmer()),
+          MaterialPageRoute(builder: (context) => const HomePageFarmer()),
         );
         break;
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => StockDetailsPage()),
+          MaterialPageRoute(builder: (context) => const StockDetailsPage()),
         );
         break;
       case 2:
@@ -322,7 +322,7 @@ class _ProfilePageState extends State<ProfilePageFarmer> {
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => IncomePage()),
+          MaterialPageRoute(builder: (context) => const IncomePage()),
         );
         break;
       case 4:

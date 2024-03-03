@@ -4,7 +4,6 @@ import 'chatpage_agent.dart';
 import '../daily_updates.dart';
 import 'transaction_agent.dart';
 import 'package:flutter/material.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -70,7 +69,7 @@ class _FarmersPageState extends State<Chatroom> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomePageAgent()),
+                              builder: (context) => const HomePageAgent()),
                         );
                       },
                     ),
@@ -102,7 +101,7 @@ class _FarmersPageState extends State<Chatroom> {
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.search, color: Colors.grey),
                         onPressed: () {
-                          print('Search button pressed');
+                          debugPrint('Search button pressed');
                         },
                       ),
                     ),
@@ -124,7 +123,7 @@ class _FarmersPageState extends State<Chatroom> {
                 context,
                 MaterialPageRoute(builder: (context) => const ChatRoomScreen()),
               );
-              print('Tapped on farmer: ${farmers[index]}');
+              debugPrint('Tapped on farmer: ${farmers[index]}');
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -232,7 +231,7 @@ class _FarmersPageState extends State<Chatroom> {
       case 0:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomePageAgent()),
+          MaterialPageRoute(builder: (context) => const HomePageAgent()),
         );
         break;
       case 1:
@@ -250,13 +249,13 @@ class _FarmersPageState extends State<Chatroom> {
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TransactionPageAgent()),
+          MaterialPageRoute(builder: (context) => const TransactionPageAgent()),
         );
         break;
       case 4:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProfilePageAgent()),
+          MaterialPageRoute(builder: (context) => const ProfilePageAgent()),
         );
         break;
     }

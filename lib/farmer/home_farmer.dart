@@ -48,7 +48,7 @@ class HomePageFarmer extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.menu),
                     onPressed: () {
-                      print('Menu button clicked');
+                      debugPrint('Menu button clicked');
                     },
                   ),
                 ],
@@ -113,9 +113,9 @@ class HomePageFarmer extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => StockDetailsPage()),
+                              builder: (context) => const StockDetailsPage()),
                         );
-                        print('stock details clicked');
+                        debugPrint('stock details clicked');
                       },
                     ),
                   ),
@@ -129,7 +129,7 @@ class HomePageFarmer extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => const ChatRoomScreen()),
                       );
-                      print('Chat with Farmers clicked');
+                      debugPrint('Chat with Farmers clicked');
                     },
                   ),
                   const SizedBox(width: 10),
@@ -139,9 +139,9 @@ class HomePageFarmer extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => IncomePage()),
+                        MaterialPageRoute(builder: (context) => const IncomePage()),
                       );
-                      print('Financial Transactions clicked');
+                      debugPrint('Financial Transactions clicked');
                     },
                     customImageSize: true,
                   ),
@@ -157,7 +157,7 @@ class HomePageFarmer extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => const ProfilePageFarmer()),
                         );
-                        print('Profile Management clicked');
+                        debugPrint('Profile Management clicked');
                       },
                       customImageSize: true,
                     ),
