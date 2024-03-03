@@ -77,12 +77,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 231, 237, 241),
+      backgroundColor: const Color.fromARGB(255, 231, 237, 241),
       appBar: PreferredSize(
         preferredSize:
             Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.blue,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(20),
@@ -95,7 +95,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back, color: Colors.white),
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -103,7 +103,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     );
                   },
                 ),
-                Text(
+                const Text(
                   'Chat Room',
                   style: TextStyle(
                     color: Colors.white,
@@ -111,7 +111,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
               ],
             ),
           ),
@@ -128,8 +128,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 return Align(
                   alignment: Alignment.centerRight,
                   child: Container(
-                    margin: EdgeInsets.all(8.0),
-                    padding: EdgeInsets.all(12.0),
+                    margin: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(10.0),
@@ -153,13 +153,13 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     child: Row(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.camera, color: Colors.blue),
+                          icon: const Icon(Icons.camera, color: Colors.blue),
                           onPressed: _takePicture,
                         ),
                         Expanded(
                           child: TextField(
                             controller: _messageController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'Type your message...',
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.all(10.0),
@@ -171,7 +171,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send, color: Colors.blue),
+                  icon: const Icon(Icons.send, color: Colors.blue),
                   onPressed: _sendMessage,
                 ),
               ],
@@ -180,7 +180,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
         ],
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -189,15 +189,15 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
         ),
         width: MediaQuery.of(context).size.width * 0.8,
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Color(0xfff3faff),
+            backgroundColor: const Color(0xfff3faff),
             selectedItemColor: Colors.blue,
-            unselectedItemColor: Color(0xff393737),
+            unselectedItemColor: const Color(0xff393737),
             currentIndex: _currentIndex,
             onTap: (int index) {
               setState(() {
@@ -205,7 +205,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 _navigateToScreen(index);
               });
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',
@@ -282,7 +282,7 @@ class TextMessage implements Message {
   Widget build() {
     return Text(
       text,
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
     );
   }
 }

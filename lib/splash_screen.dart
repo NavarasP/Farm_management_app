@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
 
     _controller = AnimationController(
-      duration: Duration(seconds: 5),
+      duration: const Duration(seconds: 5),
       vsync: this,
     );
 
@@ -39,12 +39,12 @@ class _SplashScreenState extends State<SplashScreen>
     ).animate(_controller);
 
     // Trigger the animation after a delay (e.g., 1 second)
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       _controller.forward();
     });
 
     // Navigate to the welcome page after 3 seconds
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => WelcomeScreen()),
@@ -64,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen>
         );
       },
       child: Scaffold(
-        backgroundColor: Color(0xff201f1f), // Dark Grey-Black Background Color
+        backgroundColor: const Color(0xff201f1f), // Dark Grey-Black Background Color
         body: Center(
           child: FadeTransition(
             opacity: _opacityAnimation,

@@ -21,7 +21,7 @@ class WelcomeScreen extends StatelessWidget {
 
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
             // even space distribution
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,14 +29,14 @@ class WelcomeScreen extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Welcome",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -51,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 3,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("welcoming.png"))),
               ),
@@ -69,16 +69,16 @@ class WelcomeScreen extends StatelessWidget {
                     },
                     // defining the shape
                     shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.black),
+                        side: const BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(50)),
-                    child: Text(
+                    child: const Text(
                       "Agent",
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                   ),
                   // creating the signup button
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
@@ -88,10 +88,10 @@ class WelcomeScreen extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => LoginPageFarmer()));
                     },
-                    color: Color(0xff0095FF),
+                    color: const Color(0xff0095FF),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50)),
-                    child: Text(
+                    child: const Text(
                       "Farmer ",
                       style: TextStyle(
                           color: Colors.white,

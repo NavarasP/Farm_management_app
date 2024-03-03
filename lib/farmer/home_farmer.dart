@@ -21,7 +21,7 @@ class HomePageFarmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffeaf1f6), 
+      backgroundColor: const Color(0xffeaf1f6), 
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -29,11 +29,11 @@ class HomePageFarmer extends StatelessWidget {
             Container(
               height: 80,
               color: Colors.transparent, 
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'CluckConnect',
                     style: TextStyle(
                       fontSize: 20,
@@ -42,7 +42,7 @@ class HomePageFarmer extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.menu),
+                    icon: const Icon(Icons.menu),
                     onPressed: () {
                       print('Menu button clicked');
                     },
@@ -51,7 +51,7 @@ class HomePageFarmer extends StatelessWidget {
               ),
             ),
 
-            Card(
+            const Card(
               margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               color: Color(0xFF1560BD),
               shape: RoundedRectangleBorder(
@@ -60,7 +60,7 @@ class HomePageFarmer extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -83,8 +83,8 @@ class HomePageFarmer extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'Explore Features',
                 style: TextStyle(
@@ -94,14 +94,14 @@ class HomePageFarmer extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 16),
+                    margin: const EdgeInsets.only(left: 16),
                     child: RectangleCard(
                       title: 'Live Stock Monitoring',
                       imagePath: 'assets/stock.png',
@@ -115,7 +115,7 @@ class HomePageFarmer extends StatelessWidget {
                       },
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   RectangleCard(
                     title: 'Chat with your Agent ',
                     imagePath: 'assets/chatroom.png',
@@ -128,7 +128,7 @@ class HomePageFarmer extends StatelessWidget {
                       print('Chat with Farmers clicked');
                     },
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   RectangleCard(
                     title: 'Financial Transactions',
                     imagePath: 'assets/money_trades.png',
@@ -141,9 +141,9 @@ class HomePageFarmer extends StatelessWidget {
                     },
                     customImageSize: true,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Container(
-                    margin: EdgeInsets.only(right: 16),
+                    margin: const EdgeInsets.only(right: 16),
                     child: RectangleCard(
                       title: 'Update your information',
                       imagePath: 'assets/profile.png',
@@ -162,7 +162,7 @@ class HomePageFarmer extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Image.asset(
               'assets/broiler_farm.png', 
               width: double.infinity,
@@ -191,16 +191,16 @@ class RectangleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 150, 
       height: 200,
 
       child: GestureDetector(
         onTap: onPressed,
         child: Card(
-          color: Color(0xfff2f4f6),
+          color: const Color(0xfff2f4f6),
           elevation: 5,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(topRight: Radius.circular(40)),
           ),
           child: Padding(
@@ -218,10 +218,10 @@ class RectangleCard extends StatelessWidget {
                       : 80, 
                   fit: BoxFit.cover,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                   ),
                 ),
