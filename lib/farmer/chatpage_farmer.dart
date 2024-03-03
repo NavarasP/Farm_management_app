@@ -30,8 +30,8 @@ class ChatRoomScreen extends StatefulWidget {
 }
 
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
-  TextEditingController _messageController = TextEditingController();
-  List<Message> _messages = [];
+  final TextEditingController _messageController = TextEditingController();
+  final List<Message> _messages = [];
   int _currentIndex = 0;
 
   void _sendMessage() {
@@ -65,13 +65,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   }
   void _sendMessageWithImage(File imageFile) async {
     try {
-      if (imageFile != null) {
-        List<int> imageBytes = await imageFile.readAsBytes();
-        setState(() {
-          _messages.insert(0, ImageMessage(imageBytes));
-        });
-      }
-    } catch (e) {
+      List<int> imageBytes = await imageFile.readAsBytes();
+      setState(() {
+        _messages.insert(0, ImageMessage(imageBytes));
+      });
+        } catch (e) {
       print("Error sending image: $e");
     }
   }

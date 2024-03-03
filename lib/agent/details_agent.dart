@@ -3,7 +3,6 @@ import 'chatroom_agent.dart';
 import '../daily_updates.dart';
 import 'transaction_agent.dart';
 import 'package:flutter/material.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 void main() {
   runApp(MyApp());
@@ -56,7 +55,7 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Your Profile',
           style: TextStyle(
             color: Colors.white,
@@ -66,7 +65,7 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
         ),
         centerTitle: true,
         backgroundColor: Colors.blue,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(20),
             bottomRight: Radius.circular(20),
@@ -74,35 +73,35 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Your Details',
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               onChanged: (value) => profileDetails.name = value,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Your Name',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               children: [
-                Text(
+                const Text(
                   'Gender:',
                   style: TextStyle(fontSize: 16),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Row(
                   children: [
                     Radio(
@@ -114,7 +113,7 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
                         });
                       },
                     ),
-                    Text('Male'),
+                    const Text('Male'),
                   ],
                 ),
                 Row(
@@ -128,52 +127,52 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
                         });
                       },
                     ),
-                    Text('Female'),
+                    const Text('Female'),
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               onChanged: (value) => profileDetails.state = value,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'State',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               onChanged: (value) => profileDetails.contactNumber = value,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Contact Number',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue),
                 ),
               ),
             ),
-            SizedBox(height: 32),
-            Text(
+            const SizedBox(height: 32),
+            const Text(
               'Agent Details',
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               onChanged: (value) =>
                   agentDetails.noOfFarmers = int.tryParse(value) ?? 1,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Number of Farmers Under You',
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue),
                 ),
               ),
             ),
-            SizedBox(height: 18),
+            const SizedBox(height: 18),
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -184,14 +183,14 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
                   print('Profile Details: $profileDetails');
                   print('Agent Details: $agentDetails');
                 },
-                child: Text('Save Details'),
+                child: const Text('Save Details'),
               ),
             ),
           ],
         ),
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -200,15 +199,15 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
         ),
         width: MediaQuery.of(context).size.width * 0.8,
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Color(0xfff3faff),
+            backgroundColor: const Color(0xfff3faff),
             selectedItemColor: Colors.blue,
-            unselectedItemColor: Color(0xff393737),
+            unselectedItemColor: const Color(0xff393737),
             currentIndex: _currentIndex,
             onTap: (int index) {
               setState(() {
@@ -216,7 +215,7 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
                 _navigateToScreen(index);
               });
             },
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',
@@ -256,7 +255,7 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AgentStockDisplayPage()),
+          MaterialPageRoute(builder: (context) => const AgentStockDisplayPage()),
         );
         break;
       case 2:
