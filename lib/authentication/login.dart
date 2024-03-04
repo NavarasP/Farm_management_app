@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cluck_connect/signup.dart';
-import 'package:cluck_connect/widgets.dart';
+import 'package:cluck_connect/services/widgets.dart';
 import 'package:cluck_connect/farmer/home_farmer.dart';
-import 'package:cluck_connect/api/authentication_api.dart';
+import 'package:cluck_connect/authentication/signup.dart';
+import 'package:cluck_connect/services/api/authentication_api.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cluck_connect/widgets.dart';
-import 'package:cluck_connect/login_farmer.dart';
-import 'package:cluck_connect/welcoming_screen.dart';
-import 'package:cluck_connect/api/authentication_api.dart';
+import 'package:cluck_connect/services/widgets.dart';
+import 'package:cluck_connect/authentication/login.dart';
+import 'package:cluck_connect/services/api/authentication_api.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -29,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
 
-    if (username.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty && password == confirmPassword) {
+    // if (username.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty && password == confirmPassword) {
       AuthenticationApi.signUp(selectedUserRole, username, password).then((response) {
         // Handle signup response
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
@@ -37,10 +36,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // Handle error
         debugPrint("Signup Error: $error");
       });
-    } else {
-      // Show error message or toast indicating invalid input
-      debugPrint("Invalid input or passwords do not match");
-    }
+    // } else {
+    //   // Show error message or toast indicating invalid input
+    //   debugPrint("Invalid input or passwords do not match");
+    // }
   }
 
   @override
@@ -136,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const WelcomeScreen(),
+                        builder: (context) => const LoginPage(),
                       ),
                     ),
                     child: const Text(

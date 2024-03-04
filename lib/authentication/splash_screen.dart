@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cluck_connect/welcoming_screen.dart';
+import 'package:cluck_connect/authentication/welcoming_screen.dart';
 
 
 

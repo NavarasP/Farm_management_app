@@ -1,4 +1,4 @@
-import 'package:cluck_connect/models/authentication_model.dart';
+import 'package:cluck_connect/services/models/authentication_model.dart';
 
 
 class Farm {

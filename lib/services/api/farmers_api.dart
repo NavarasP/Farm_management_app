@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:cluck_connect/models/agent_model.dart';
-import 'package:cluck_connect/models/farmer_model.dart';
+import 'package:cluck_connect/services/models/agent_model.dart';
+import 'package:cluck_connect/services/models/farmer_model.dart';
 
 
 class FarmApi {

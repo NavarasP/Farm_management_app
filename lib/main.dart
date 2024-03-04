@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cluck_connect/splash_screen.dart';
+import 'package:cluck_connect/authentication/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());

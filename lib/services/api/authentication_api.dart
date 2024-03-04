@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:cluck_connect/models/authentication_model.dart';
+import 'package:cluck_connect/services/models/authentication_model.dart';
 
 
 class AuthenticationApi {
-  static const String baseUrl = 'http://your-api-base-url.com/api/v1';
+  static const String baseUrl = 'http://127.0.0.1:8000/api/v1/';
 
   static Future<Map<String, dynamic>> signUp(String role, String email, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/user/signup'),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-      },
+      // headers: <String, String>{
+      //   'Content-Type': 'application/json',
+      // },
       body: jsonEncode(<String, String>{
         'role': role,
         'email': email,
