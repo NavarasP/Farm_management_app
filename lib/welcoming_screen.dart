@@ -1,13 +1,7 @@
-import 'agent/login_agent.dart';
-import 'farmer/login_farmer.dart';
 import 'package:flutter/material.dart';
+import 'package:cluck_connect/agent/login_agent.dart';
+// import 'package:cluck_connect/farmer/login_farmer.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: WelcomeScreen(),
-  ));
-}
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -68,32 +62,32 @@ class WelcomeScreen extends StatelessWidget {
                         side: const BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(50)),
                     child: const Text(
-                      "Agent",
+                      "LOGIN",
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  MaterialButton(
-                    minWidth: double.infinity,
-                    height: 60,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginPageFarmer()));
-                    },
-                    color: const Color(0xff0095FF),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)),
-                    child: const Text(
-                      "Farmer ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18),
-                    ),
-                  )
+              //     const SizedBox(height: 20),
+              //     MaterialButton(
+              //       minWidth: double.infinity,
+              //       height: 60,
+              //       onPressed: () {
+              //         Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //                 builder: (context) => const LoginPageFarmer()));
+              //       },
+              //       color: const Color(0xff0095FF),
+              //       shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(50)),
+              //       child: const Text(
+              //         "Farmer ",
+              //         style: TextStyle(
+              //             color: Colors.white,
+              //             fontWeight: FontWeight.w600,
+              //             fontSize: 18),
+              //       ),
+              //     )
                 ],
               )
             ],

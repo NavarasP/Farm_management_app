@@ -4,9 +4,6 @@ import 'transaction_farmer.dart';
 import 'stockdetails_farmer.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
 
 class ProfileDetails {
   String name = '';

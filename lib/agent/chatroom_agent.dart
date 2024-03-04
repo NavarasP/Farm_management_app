@@ -1,7 +1,7 @@
 import 'home_agent.dart';
 import 'details_agent.dart';
+import 'daily_updates.dart';
 import 'chatpage_agent.dart';
-import '../daily_updates.dart';
 import 'transaction_agent.dart';
 import 'package:flutter/material.dart';
 void main() {

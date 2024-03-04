@@ -1,6 +1,6 @@
 import 'details_agent.dart';
+import 'daily_updates.dart';
 import 'chatroom_agent.dart';
-import '../daily_updates.dart';
 import 'transaction_agent.dart';
 import 'package:flutter/material.dart';
 

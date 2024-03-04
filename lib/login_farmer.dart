@@ -1,24 +1,44 @@
-import '../signup.dart';
-import 'home_farmer.dart';
 import 'package:flutter/material.dart';
+import 'package:cluck_connect/signup.dart';
+import 'package:cluck_connect/widgets.dart';
+import 'package:cluck_connect/farmer/home_farmer.dart';
+import 'package:cluck_connect/api/authentication_api.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoginPageFarmer(),
-    );
-  }
+  // ignore: library_private_types_in_public_api
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class LoginPageFarmer extends StatelessWidget {
-  const LoginPageFarmer({super.key});
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void signIn() {
+    String username = usernameController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (username.isNotEmpty && password.isNotEmpty) {
+      AuthenticationApi.signIn(username, password).then((response) {
+        // Handle signin response
+        String userType = response['user']['type']; // Assuming response has user type information
+        if (userType == 'Farmer') {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePageFarmer()));
+        } else {
+          // Navigate to agent home page
+          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AgentHomePage()));
+        }
+      }).catchError((error) {
+        // Handle error
+        debugPrint("Signin Error: $error");
+      });
+    } else {
+      // Show error message or toast indicating invalid input
+      debugPrint("Invalid username or password");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +72,15 @@ class LoginPageFarmer extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: size.height * 0.03),
-                const GlassInputField(
+                GlassInputField(
                   hintText: "Username",
+                  controller: usernameController,
                 ),
                 SizedBox(height: size.height * 0.03),
-                const GlassInputField(
+                GlassInputField(
                   hintText: "Password",
                   isPassword: true,
+                  controller: passwordController,
                 ),
                 Container(
                   alignment: Alignment.centerRight,
@@ -73,15 +95,11 @@ class LoginPageFarmer extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePageFarmer()),
-                      );
-                    },
+                    onPressed: signIn,
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white, backgroundColor: Colors.blue, shape: RoundedRectangleBorder(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(80.0),
                       ),
                       padding: const EdgeInsets.all(0),
@@ -105,12 +123,12 @@ class LoginPageFarmer extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: GestureDetector(
-                    onTap: () => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterScreen()))
-                    },
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterScreen(),
+                      ),
+                    ),
                     child: const Text(
                       "Don't Have an Account? Sign up",
                       style: TextStyle(
@@ -137,34 +155,3 @@ class LoginPageFarmer extends StatelessWidget {
     );
   }
 }
-
-class GlassInputField extends StatelessWidget {
-  final String hintText;
-  final bool isPassword;
-
-  const GlassInputField({super.key, required this.hintText, this.isPassword = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      margin: const EdgeInsets.symmetric(horizontal: 40),
-      decoration: BoxDecoration(
-        color: const Color(0xffebeaea)
-            .withOpacity(0.7), 
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: TextField(
-        obscureText: isPassword,
-        style: const TextStyle(color: Colors.black),
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.black),
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        ),
-      ),
-    );
-  }
-}
-

@@ -1,14 +1,10 @@
-import 'agent/home_agent.dart';
-import 'agent/details_agent.dart';
-import 'agent/chatroom_agent.dart';
-import 'agent/transaction_agent.dart';
+import 'home_agent.dart';
+import 'details_agent.dart';
+import 'chatroom_agent.dart';
+import 'transaction_agent.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    home: AgentStockDisplayPage(),
-  ));
-}
+
 
 class EntryDetails {
   int totalChick;
