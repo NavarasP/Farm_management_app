@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cluck_connect/agent/login_agent.dart';
+import 'package:cluck_connect/authentication/login.dart';
 // import 'package:cluck_connect/farmer/login_farmer.dart';
 
 
@@ -56,7 +56,7 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LoginPageAgent()));
+                              builder: (context) => const LoginPage()));
                     },
                     shape: RoundedRectangleBorder(
                         side: const BorderSide(color: Colors.black),
@@ -67,27 +67,6 @@ class WelcomeScreen extends StatelessWidget {
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                   ),
-              //     const SizedBox(height: 20),
-              //     MaterialButton(
-              //       minWidth: double.infinity,
-              //       height: 60,
-              //       onPressed: () {
-              //         Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => const LoginPageFarmer()));
-              //       },
-              //       color: const Color(0xff0095FF),
-              //       shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(50)),
-              //       child: const Text(
-              //         "Farmer ",
-              //         style: TextStyle(
-              //             color: Colors.white,
-              //             fontWeight: FontWeight.w600,
-              //             fontSize: 18),
-              //       ),
-              //     )
                 ],
               )
             ],

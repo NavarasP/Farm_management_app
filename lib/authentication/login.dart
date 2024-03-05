@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cluck_connect/agent/home_agent.dart';
 import 'package:cluck_connect/services/widgets.dart';
 import 'package:cluck_connect/farmer/home_farmer.dart';
 import 'package:cluck_connect/authentication/signup.dart';
@@ -16,29 +17,40 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  void signIn() {
-    String username = usernameController.text.trim();
-    String password = passwordController.text.trim();
+void signIn() {
+  String username = usernameController.text.trim();
+  String password = passwordController.text.trim();
 
-    if (username.isNotEmpty && password.isNotEmpty) {
-      AuthenticationApi.signIn(username, password).then((response) {
-        // Handle signin response
-        String userType = response['user']['type']; // Assuming response has user type information
-        if (userType == 'Farmer') {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePageFarmer()));
+  if (username.isNotEmpty && password.isNotEmpty) {
+    AuthenticationApi().signIn(username, password).then((_) {
+      AuthenticationApi.getUserDetails().then((userDetails) {
+        String? userType = userDetails['userType']; // Nullable string
+        if (userType != null) {
+          if (userType == 'farmer') {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePageFarmer()));
+          } else if (userType == 'agent') {
+            // Navigate to agent home page
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePageAgent()));
+          } else {
+            // Handle unknown user type
+            debugPrint("Unknown user type");
+          }
         } else {
-          // Navigate to agent home page
-          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AgentHomePage()));
+          // Handle null user type
+          debugPrint("User type not available");
         }
-      }).catchError((error) {
-        // Handle error
-        debugPrint("Signin Error: $error");
       });
-    } else {
-      // Show error message or toast indicating invalid input
-      debugPrint("Invalid username or password");
-    }
+    }).catchError((error) {
+      // Handle error
+      debugPrint("Signin Error: $error");
+    });
+  } else {
+    // Show error message or toast indicating invalid input
+    debugPrint("Invalid username or password");
   }
+}
+
+
 
   @override
   Widget build(BuildContext context) {

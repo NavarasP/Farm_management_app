@@ -1,23 +1,10 @@
 import 'details_agent.dart';
 import 'daily_updates.dart';
 import 'chatroom_agent.dart';
-import 'transaction_agent.dart';
 import 'package:flutter/material.dart';
+import 'package:cluck_connect/agent/transaction_agent.dart';
 
-void main() {
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePageAgent(),
-    );
-  }
-}
 
 class HomePageAgent extends StatelessWidget {
   const HomePageAgent({super.key});
