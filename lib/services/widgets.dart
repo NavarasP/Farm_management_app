@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 class GlassInputField extends StatelessWidget {
   final String hintText;
   final bool isPassword;
+  final TextEditingController controller;
 
-  const GlassInputField({super.key, required this.hintText, this.isPassword = false, required TextEditingController controller});
+  const GlassInputField({
+    Key? key,
+    required this.hintText,
+    this.isPassword = false,
+    required this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +23,7 @@ class GlassInputField extends StatelessWidget {
       ),
       child: TextField(
         obscureText: isPassword,
+        controller: controller, // Assign the controller here
         style: const TextStyle(color: Colors.black),
         decoration: InputDecoration(
           hintText: hintText,

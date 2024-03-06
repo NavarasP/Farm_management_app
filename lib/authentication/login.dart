@@ -14,43 +14,41 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
-void signIn() {
-  String username = usernameController.text.trim();
-  String password = passwordController.text.trim();
+  void signIn() {
+    String username = usernameController.text.trim();
+    String password = passwordController.text.trim();
 
-  if (username.isNotEmpty && password.isNotEmpty) {
-    AuthenticationApi().signIn(username, password).then((_) {
-      AuthenticationApi.getUserDetails().then((userDetails) {
-        String? userType = userDetails['userType']; // Nullable string
-        if (userType != null) {
+    if (username.isNotEmpty && password.isNotEmpty) {
+      AuthenticationApi().signIn(username, password).then((_) {
+        AuthenticationApi.getUserDetails().then((userDetails) {
+          String? userType = userDetails['role']; // Nullable string
           if (userType == 'farmer') {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePageFarmer()));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HomePageFarmer()));
           } else if (userType == 'agent') {
             // Navigate to agent home page
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePageAgent()));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const HomePageAgent()));
           } else {
+            debugPrint(userType);
             // Handle unknown user type
             debugPrint("Unknown user type");
           }
-        } else {
-          // Handle null user type
-          debugPrint("User type not available");
-        }
+        });
+      }).catchError((error) {
+        // Handle error
+        debugPrint("Signin Error: $error");
       });
-    }).catchError((error) {
-      // Handle error
-      debugPrint("Signin Error: $error");
-    });
-  } else {
-    // Show error message or toast indicating invalid input
-    debugPrint("Invalid username or password");
+    } else {
+      // Show error message or toast indicating invalid input
+      debugPrint("Invalid username or password");
+    }
   }
-}
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +94,8 @@ void signIn() {
                 ),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: const Text(
                     "Forgot your password?",
                     style: TextStyle(fontSize: 12, color: Color(0xFF2661FA)),
@@ -105,7 +104,8 @@ void signIn() {
                 const SizedBox(height: 10),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: ElevatedButton(
                     onPressed: signIn,
                     style: ElevatedButton.styleFrom(
@@ -133,7 +133,8 @@ void signIn() {
                 ),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: GestureDetector(
                     onTap: () => Navigator.push(
                       context,
@@ -159,7 +160,7 @@ void signIn() {
             left: 0,
             child: Image.asset(
               "assets/corner.png",
-              height: 180, 
+              height: 180,
             ),
           ),
         ],

@@ -28,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
 
-    // if (username.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty && password == confirmPassword) {
+    if (password == confirmPassword) {
       AuthenticationApi.signUp(selectedUserRole, username, password).then((response) {
         // Handle signup response
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
@@ -36,10 +36,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // Handle error
         debugPrint("Signup Error: $error");
       });
-    // } else {
-    //   // Show error message or toast indicating invalid input
-    //   debugPrint("Invalid input or passwords do not match");
-    // }
+    } else {
+      // Show error message or toast indicating invalid input
+      debugPrint("Invalid input or passwords do not match");
+    }
   }
 
   @override
