@@ -17,7 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## File Structure
-'''
+```
 lib/
 |__ agent/
 |   |__ chatpage_agent.dart
@@ -48,4 +48,4 @@ lib/
 |   |   |__ farmer_model.dart
 |   |__ widgets.dart
 |__ main.dart
-'''
+```
