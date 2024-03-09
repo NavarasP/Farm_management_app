@@ -17,7 +17,8 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## File Structure
-```
+
+```lib
 lib/
 |__ agent/
 |   |__ chatpage_agent.dart
@@ -48,4 +49,17 @@ lib/
 |   |   |__ farmer_model.dart
 |   |__ widgets.dart
 |__ main.dart
+```
+
+## Dependencies
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  convex_bottom_bar: ^3.2.0
+  image_picker: ^1.0.7
+  http: ^1.2.1
+  shared_preferences: ^2.2.2
 ```
