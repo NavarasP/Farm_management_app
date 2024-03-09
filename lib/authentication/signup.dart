@@ -16,6 +16,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController agentIdController = TextEditingController(); // New controller for agent ID
 
   void setSelectedUserRole(String role) {
     setState(() {
@@ -27,9 +28,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String username = usernameController.text.trim();
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
+    String agentId = agentIdController.text.trim(); // Get agent ID from the text field
 
     if (password == confirmPassword) {
-      AuthenticationApi.signUp(selectedUserRole, username, password).then((response) {
+      if (selectedUserRole == "farmer" && agentId.isEmpty) {
+        // Show error message if the user selects "Farmer" but doesn't enter an agent ID
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please enter an agent ID.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+        return;
+      }
+      
+      AuthenticationApi.signUp(selectedUserRole, username, password, agentId: agentId).then((response) {
         // Handle signup response
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
       }).catchError((error) {
@@ -90,13 +103,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   isPassword: true,
                   controller: confirmPasswordController,
                 ),
+                if (selectedUserRole == "farmer") // Only show agent ID field if the selected role is "Farmer"
+                  Column(
+                    children: [
+                      SizedBox(height: size.height * 0.03),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        child: GlassInputField(
+                          hintText: "Agent ID",
+                          controller: agentIdController,
+                           // Add a label for the agent ID field
+                        ),
+                      ),
+                    ],
+                  ),
                 SizedBox(height: size.height * 0.03),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    UserTypeButton(userType: "Farmer", isSelected: selectedUserRole == "Farmer", onSelect: setSelectedUserRole),
+                    UserTypeButton(userType: "Farmer", isSelected: selectedUserRole == "farmer", onSelect: setSelectedUserRole),
                     const SizedBox(width: 20),
-                    UserTypeButton(userType: "Agent", isSelected: selectedUserRole == "Agent", onSelect: setSelectedUserRole),
+                    UserTypeButton(userType: "Agent", isSelected: selectedUserRole == "agent", onSelect: setSelectedUserRole),
                   ],
                 ),
                 SizedBox(height: size.height * 0.03),

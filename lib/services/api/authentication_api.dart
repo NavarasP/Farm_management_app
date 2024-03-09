@@ -70,17 +70,23 @@ class AuthenticationApi {
   }
 
   static Future<Map<String, dynamic>> signUp(
-      String role, String email, String password) async {
+      String role, String email, String password, {String? agentId}) async {
     try {
+      final Map<String, String> requestBody = {
+        'role': role,
+        'email': email,
+        'password': password,
+        'confirmPassword': password,
+      };
+
+      if (role == 'farmer' && agentId != null) {
+        requestBody['agent'] = agentId;
+      }
+
       final response = await http.post(
         Uri.parse('$baseUrl/user/signup'),
         headers: <String, String>{'Content-Type': 'application/json'},
-        body: jsonEncode(<String, String>{
-          'role': role,
-          'email': email,
-          'password': password,
-          'confirmPassword': password,
-        }),
+        body: jsonEncode(requestBody),
       );
       debugPrint(response.body);
 
@@ -90,6 +96,7 @@ class AuthenticationApi {
       rethrow;
     }
   }
+
 
   static Future<User?> getMyUser(String token) async {
     try {
