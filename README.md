@@ -1,4 +1,4 @@
-# cluck_connect
+# Cluck Connect
 
 A new Flutter project.
 
