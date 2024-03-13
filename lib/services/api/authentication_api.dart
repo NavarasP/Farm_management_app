@@ -9,12 +9,14 @@ class AuthenticationApi {
   static const String authTokenKey = 'authToken';
 
   Future<void> saveUserDetails(
-      String authToken, String username, String role) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('authToken', authToken);
-    prefs.setString('username', username);
-    prefs.setString('role', role);
-  }
+    String authToken, String username, String role, String agentId) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('authToken', authToken);
+  prefs.setString('username', username);
+  prefs.setString('role', role);
+  prefs.setString('agentId', agentId); // Save agent ID to SharedPreferences
+}
+
 
   static Future<Map<String, String?>> getUserDetails() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -24,6 +26,12 @@ class AuthenticationApi {
       'role': prefs.getString('role'),
     };
   }
+
+  
+static Future<String?> getAgentId() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('agentId');
+}
 
   // Retrieve the auth token from SharedPreferences
   static Future<String?> getAuthToken() async {
@@ -54,8 +62,10 @@ class AuthenticationApi {
           final String token = responseData['token'];
           final Map<String, dynamic> userData = responseData['data'];
           final String role = userData['role'];
+          final String agentId = userData['agent'];
 
-          await saveUserDetails(token, email, role);
+
+          await saveUserDetails(token, email, role, agentId);
           debugPrint('Signed in successfully!');
         } else {
           debugPrint('Error signing in: Status - $status');
