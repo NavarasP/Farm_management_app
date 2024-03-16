@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:cluck_connect/agent/home_agent.dart';
+import 'package:cluck_connect/farmer/home_farmer.dart';
+import 'package:cluck_connect/services/api/authentication_api.dart';
 import 'package:cluck_connect/authentication/welcoming_screen.dart';
 
-
-
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _SplashScreenState createState() => _SplashScreenState();
 }
 
@@ -35,12 +35,35 @@ class _SplashScreenState extends State<SplashScreen>
       _controller.forward();
     });
 
-    // Navigate to the welcome page after 3 seconds
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const WelcomeScreen()),
-      );
+    // Check if the user is authenticated
+    AuthenticationApi().isAuthenticated().then((isAuthenticated) {
+      if (isAuthenticated) {
+        // If authenticated, get user details to determine user type
+        AuthenticationApi.getUserDetails().then((userDetails) {
+          String? userType = userDetails['role']; // Nullable string
+          if (userType == 'farmer') {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePageFarmer()),
+            );
+          } else if (userType == 'agent') {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePageAgent()),
+            );
+          } else {
+            // Handle other user types or scenarios
+          }
+        });
+      } else {
+        // If not authenticated, navigate to the welcome screen after 3 seconds
+        Future.delayed(const Duration(seconds: 5), () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          );
+        });
+      }
     });
   }
 
@@ -64,8 +87,8 @@ class _SplashScreenState extends State<SplashScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Replace 'assets/logo.png' with the actual path to your logo asset
-                Image.asset('assets/logo.png',
-
+                Image.asset(
+                  'assets/logo.png',
                   width: 200.0, // Adjust the width as needed
                   height: 200.0, // Adjust the height as needed
                 ),

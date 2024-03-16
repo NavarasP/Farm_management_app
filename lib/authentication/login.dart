@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const HomePageFarmer()));
+                    builder: (context) => const HomePageFarmer ()));
           } else if (userType == 'agent') {
             // Navigate to agent home page
             Navigator.pushReplacement(context,

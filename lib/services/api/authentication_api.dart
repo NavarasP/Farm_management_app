@@ -1,22 +1,23 @@
 import 'dart:convert';
+import 'constants.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cluck_connect/services/models/authentication_model.dart';
+import 'package:cluck_connect/authentication/welcoming_screen.dart';
+import 'package:cluck_connect/services/api_models/authentication_model.dart';
 
 class AuthenticationApi {
-  static const String baseUrl = 'http://127.0.0.1:8080/api/v1';
   static const String authTokenKey = 'authToken';
 
   Future<void> saveUserDetails(
-    String authToken, String username, String role, String agentId) async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString('authToken', authToken);
-  prefs.setString('username', username);
-  prefs.setString('role', role);
-  prefs.setString('agentId', agentId); // Save agent ID to SharedPreferences
-}
-
+      String authToken, String username, String role, String agentId) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('authToken', authToken);
+    prefs.setString('username', username);
+    prefs.setString('role', role);
+    prefs.setString('agentId', agentId); // Save agent ID to SharedPreferences
+  }
 
   static Future<Map<String, String?>> getUserDetails() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -27,13 +28,11 @@ class AuthenticationApi {
     };
   }
 
-  
-static Future<String?> getAgentId() async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString('agentId');
-}
+  static Future<String?> getAgentId() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('agentId');
+  }
 
-  // Retrieve the auth token from SharedPreferences
   static Future<String?> getAuthToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(authTokenKey);
@@ -47,7 +46,6 @@ static Future<String?> getAgentId() async {
 
   Future<void> signIn(String email, String password) async {
     try {
-      
       final response = await http.post(
         Uri.parse('$baseUrl/user/signin'),
         body: {'email': email, 'password': password},
@@ -62,8 +60,8 @@ static Future<String?> getAgentId() async {
           final String token = responseData['token'];
           final Map<String, dynamic> userData = responseData['data'];
           final String role = userData['role'];
-          final String agentId = userData['agent'];
-
+          final String agentId = userData['agent']?? '';
+          debugPrint(token);
 
           await saveUserDetails(token, email, role, agentId);
           debugPrint('Signed in successfully!');
@@ -80,7 +78,8 @@ static Future<String?> getAgentId() async {
   }
 
   static Future<Map<String, dynamic>> signUp(
-      String role, String email, String password, {String? agentId}) async {
+      String role, String email, String password,
+      {String? agentId}) async {
     try {
       final Map<String, String> requestBody = {
         'role': role,
@@ -107,7 +106,6 @@ static Future<String?> getAgentId() async {
     }
   }
 
-
   static Future<User?> getMyUser(String token) async {
     try {
       final response = await http.get(
@@ -127,4 +125,18 @@ static Future<String?> getAgentId() async {
       return null;
     }
   }
+
+
+Future<void> signOut(BuildContext context) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.clear();
+  
+  // Navigate to WelcomeScreen
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (context) => WelcomeScreen()),
+    (Route<dynamic> route) => false, // Clear the navigation stack
+  );
 }
+}
+

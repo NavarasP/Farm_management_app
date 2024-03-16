@@ -1,52 +1,41 @@
-import 'home_farmer.dart';
-import 'chatpage_farmer.dart';
-import 'transaction_farmer.dart';
-import 'stockdetails_farmer.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-
-
-class ProfileDetails {
-  String name = '';
-  String gender = '';
-  String state = '';
-  String contactNumber = '';
-  String agentPhoneNumber = '';
-}
-
-class FarmDetails {
-  int totalFarms = 1;
-  List<String> farmLocations = [''];
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ProfilePageFarmer(),
-    );
-  }
-}
+import 'package:cluck_connect/services/api/farmers_api.dart';
+import 'package:cluck_connect/services/api/authentication_api.dart';
+import 'package:cluck_connect/services/api_models/farmer_model.dart';
 
 class ProfilePageFarmer extends StatefulWidget {
-  const ProfilePageFarmer({super.key});
+  const ProfilePageFarmer({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _ProfilePageState createState() => _ProfilePageState();
+  _ProfilePageFarmerState createState() => _ProfilePageFarmerState();
 }
 
-class _ProfilePageState extends State<ProfilePageFarmer> {
-  late ProfileDetails profileDetails;
-  late FarmDetails farmDetails;
-  int _currentIndex = 0;
+class _ProfilePageFarmerState extends State<ProfilePageFarmer> {
+  Profile? profileDetails;
 
   @override
   void initState() {
     super.initState();
-    profileDetails = ProfileDetails();
-    farmDetails = FarmDetails();
+    // Call the function to fetch user data
+    fetchUserData();
+  }
+
+  Profile parseUserData(String jsonString) {
+    Map<String, dynamic> data = jsonDecode(jsonString);
+    return Profile.fromJson(data['data']);
+  }
+
+  Future<void> fetchUserData() async {
+    try {
+      Profile userData = await FarmApi.getUserData();
+      setState(() {
+        profileDetails = userData;
+      });
+    } catch (e) {
+      debugPrint('Failed to fetch user data: $e');
+      // Handle error
+    }
   }
 
   @override
@@ -83,162 +72,15 @@ class _ProfilePageState extends State<ProfilePageFarmer> {
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
-              onChanged: (value) => profileDetails.name = value,
-              decoration: const InputDecoration(
-                labelText: 'Your Name',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                const Text(
-                  'Gender:',
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(width: 16),
-                Row(
-                  children: [
-                    Radio(
-                      value: 'Male',
-                      groupValue: profileDetails.gender,
-                      onChanged: (value) {
-                        setState(() {
-                          profileDetails.gender = value.toString();
-                        });
-                      },
-                    ),
-                    const Text('Male'),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Radio(
-                      value: 'Female',
-                      groupValue: profileDetails.gender,
-                      onChanged: (value) {
-                        setState(() {
-                          profileDetails.gender = value.toString();
-                        });
-                      },
-                    ),
-                    const Text('Female'),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              onChanged: (value) => profileDetails.state = value,
-              decoration: const InputDecoration(
-                labelText: 'State',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              onChanged: (value) => profileDetails.contactNumber = value,
-              decoration: const InputDecoration(
-                labelText: 'Your Contact Number',
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              onChanged: (value) => profileDetails.agentPhoneNumber = value,
-              decoration: const InputDecoration(
-                labelText: "Your Agent's Contact Number",
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue),
-                ),
-              ),
-            ),
-            const SizedBox(height: 32),
-            const Text(
-              'Farm Details',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                const Text(
-                  'Total Number of Farms:',
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(width: 16),
-                DropdownButton<int>(
-                  value: farmDetails.totalFarms,
-                  items:
-                      List.generate(50, (index) => index + 1).map((int number) {
-                    return DropdownMenuItem<int>(
-                      value: number,
-                      child: Text(
-                        number.toString(),
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (int? value) {
-                    setState(() {
-                      farmDetails.totalFarms = value ?? 1;
-                      farmDetails.farmLocations =
-                          List.generate(farmDetails.totalFarms, (index) => '');
-                    });
-                  },
-                  style: const TextStyle(
-                    color: Colors.blue, 
-                    fontSize: 16, 
-                  ),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.blue, 
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(height: 16),
-            for (int i = 0; i < farmDetails.totalFarms; i++) ...[
-              Column(
-                children: [
-                  TextField(
-                    onChanged: (value) => farmDetails.farmLocations[i] = value,
-                    decoration: InputDecoration(
-                      labelText: 'Area of Farm ${i + 1}',
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16), 
-                ],
-              ),
+            if (profileDetails != null) ...[
+              _buildProfileDetail('Name', profileDetails!.name),
+              _buildProfileDetail('Gender', profileDetails!.gender),
+              _buildProfileDetail('State', profileDetails!.state),
+              _buildProfileDetail('Contact Number', profileDetails!.phoneNumber.toString()),
+              // Add more profile details as needed
+            ] else ...[
+              const CircularProgressIndicator(), // Show loading indicator while fetching data
             ],
-            const SizedBox(height: 18),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePageFarmer()),
-                  );
-                  debugPrint('Profile Details: $profileDetails');
-                  debugPrint('Farm Details: $farmDetails');
-                },
-                child: const Text('Save Details'),
-              ),
-            ),
           ],
         ),
       ),
@@ -251,43 +93,17 @@ class _ProfilePageState extends State<ProfilePageFarmer> {
           color: Colors.white,
         ),
         width: MediaQuery.of(context).size.width * 0.8,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: const Color(0xfff3faff),
-            selectedItemColor: Colors.blue,
-            unselectedItemColor: const Color(0xff393737),
-            currentIndex: _currentIndex,
-            onTap: (int index) {
-              setState(() {
-                _currentIndex = index;
-                _navigateToScreen(index);
-              });
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.business),
-                label: 'Updates',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.chat),
-                label: 'Chat Room',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.monetization_on),
-                label: 'Transaction',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Me',
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  AuthenticationApi authenticationApi = AuthenticationApi();
+                  authenticationApi.signOut(context); // Call sign-out method on instance
+                },
+                child: const Text('Sign Out'),
               ),
             ],
           ),
@@ -296,38 +112,21 @@ class _ProfilePageState extends State<ProfilePageFarmer> {
     );
   }
 
-  void _navigateToScreen(int index) {
-    switch (index) {
-      case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePageFarmer()),
-        );
-        break;
-      case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const StockDetailsPage()),
-        );
-        break;
-      case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ChatRoomScreen()),
-        );
-        break;
-      case 3:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const IncomePage()),
-        );
-        break;
-      case 4:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ProfilePageFarmer()),
-        );
-        break;
-    }
+  Widget _buildProfileDetail(String label, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 16, color: Colors.black87),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          value,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+        ),
+        const SizedBox(height: 16),
+      ],
+    );
   }
 }

@@ -1,7 +1,3 @@
-import 'home_agent.dart';
-import 'details_agent.dart';
-import 'chatroom_agent.dart';
-import 'transaction_agent.dart';
 import 'package:flutter/material.dart';
 
 
@@ -59,15 +55,6 @@ class _AgentStockDisplayPageState extends State<AgentStockDisplayPage> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: const Text('Monitor your Farmers'),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePageAgent()),
-                );
-              },
-            ),
           ),
         ),
       ),
@@ -118,85 +105,13 @@ class _AgentStockDisplayPageState extends State<AgentStockDisplayPage> {
           color: Colors.white,
         ),
         width: MediaQuery.of(context).size.width * 0.8,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.blue,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: const Color(0xff2e2c2c),
-            currentIndex: _currentIndex,
-            onTap: (int index) {
-              setState(() {
-                _currentIndex = index;
-                _navigateToScreen(index);
-              });
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.group),
-                label: 'Farmer',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.chat),
-                label: 'Chat Room',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.monetization_on),
-                label: 'Transaction',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Me',
-              ),
-            ],
-          ),
-        ),
+        
       ),
     );
   }
 
-  void _navigateToScreen(int index) {
-    switch (index) {
-      case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePageAgent()),
-        );
-        break;
-      case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const AgentStockDisplayPage()),
-        );
-        break;
-      case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Chatroom()),
-        );
-        break;
-      case 3:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const TransactionPageAgent()),
-        );
-        break;
-      case 4:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ProfilePageAgent()),
-        );
-        break;
-    }
-  }
+
+  
 }
 
 class StockDisplayList extends StatefulWidget {

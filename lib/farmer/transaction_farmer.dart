@@ -1,12 +1,12 @@
+import 'farm_list.dart';
 import 'home_farmer.dart';
 import 'details_farmer.dart';
-import 'chatpage_farmer.dart';
-import 'stockdetails_farmer.dart';
+import '../chat/chatpage.dart';
 import 'package:flutter/material.dart';
+import 'package:cluck_connect/chat/chats.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+
+
 
 class TransactionDetails {
   String datePlaceholder;
@@ -18,16 +18,6 @@ class TransactionDetails {
   });
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: IncomePage(),
-    );
-  }
-}
 
 class IncomePage extends StatefulWidget {
   const IncomePage({super.key});
@@ -182,7 +172,7 @@ class _IncomePageState extends State<IncomePage> {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ChatRoomScreen()),
+          MaterialPageRoute(builder: (context) => const ChatUsersPage()),
         );
         break;
       case 3:

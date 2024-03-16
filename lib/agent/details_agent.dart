@@ -1,8 +1,6 @@
-import 'home_agent.dart';
-import 'daily_updates.dart';
-import 'chatroom_agent.dart';
-import 'transaction_agent.dart';
 import 'package:flutter/material.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -178,19 +176,7 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
               ),
             ),
             const SizedBox(height: 18),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePageAgent()),
-                  );
-                  debugPrint('Profile Details: $profileDetails');
-                  debugPrint('Agent Details: $agentDetails');
-                },
-                child: const Text('Save Details'),
-              ),
-            ),
+
           ],
         ),
       ),
@@ -203,85 +189,11 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
           color: Colors.white,
         ),
         width: MediaQuery.of(context).size.width * 0.8,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: const Color(0xfff3faff),
-            selectedItemColor: Colors.blue,
-            unselectedItemColor: const Color(0xff393737),
-            currentIndex: _currentIndex,
-            onTap: (int index) {
-              setState(() {
-                _currentIndex = index;
-                _navigateToScreen(index);
-              });
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.group),
-                label: 'Farmer',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.chat),
-                label: 'Chat Room',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.monetization_on),
-                label: 'Transaction',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Me',
-              ),
-            ],
-          ),
-        ),
+      
       ),
     );
   }
 
-  void _navigateToScreen(int index) {
-    // Add navigation logic based on the index
-    switch (index) {
-      case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePageAgent()),
-        );
-        break;
-      case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const AgentStockDisplayPage()),
-        );
-        break;
-      case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Chatroom()),
-        );
-        break;
-      case 3:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const TransactionPageAgent()),
-        );
-        break;
-      case 4:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ProfilePageAgent()),
-        );
-        break;
-    }
-  }
+
 }
 

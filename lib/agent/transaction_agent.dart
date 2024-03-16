@@ -1,8 +1,8 @@
 import 'home_agent.dart';
 import 'details_agent.dart';
 import 'daily_updates.dart';
-import 'chatroom_agent.dart';
 import 'package:flutter/material.dart';
+import 'package:cluck_connect/chat/chats.dart';
 
 void main() {
   runApp(const MyApp());
@@ -426,7 +426,7 @@ class _TransactionPageState extends State<TransactionPageAgent>
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const Chatroom()),
+          MaterialPageRoute(builder: (context) => const ChatUsersPage()),
         );
         break;
       case 3:

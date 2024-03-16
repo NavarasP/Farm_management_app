@@ -78,3 +78,63 @@ class _UserTypeButtonState extends State<UserTypeButton> {
     );
   }
 }
+
+
+class RectangleCard extends StatelessWidget {
+  final String title;
+  final String imagePath;
+  final VoidCallback onPressed;
+  final bool customImageSize;
+
+  const RectangleCard({
+    super.key,
+    required this.title,
+    required this.imagePath,
+    required this.onPressed,
+    this.customImageSize = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 150, 
+      height: 200,
+
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Card(
+          color: const Color(0xfff2f4f6),
+          elevation: 5,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(topRight: Radius.circular(40)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.asset(
+                  imagePath,
+                  height: customImageSize
+                      ? 100
+                      : 80,
+                  width: customImageSize
+                      ? 100
+                      : 80, 
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
