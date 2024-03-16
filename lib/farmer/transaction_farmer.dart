@@ -1,6 +1,6 @@
 import 'farm_list.dart';
 import 'home_farmer.dart';
-import 'details_farmer.dart';
+import 'farmer_profile.dart';
 import '../chat/chatpage.dart';
 import 'package:flutter/material.dart';
 import 'package:cluck_connect/chat/chats.dart';

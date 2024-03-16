@@ -16,7 +16,7 @@ class ChatUsersPage extends StatefulWidget {
 
 class _ChatUsersPageState extends State<ChatUsersPage> {
   List<ChatRoom> _chatRooms = [];
-  bool _showNewChatButton = false;
+  final bool _showNewChatButton = true;
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ void _fetchChatRooms() async {
     setState(() {
       _chatRooms = chatRooms;
       // Check if the user is a farmer and chat list is not empty
-      _showNewChatButton = isFarmer && _chatRooms.isNotEmpty;
+      _showNewChatButton != isFarmer && _chatRooms.isNotEmpty;
     });
   } catch (e) {
     debugPrint("Error fetching chat rooms: $e");

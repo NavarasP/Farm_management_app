@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cluck_connect/chat/chats.dart';
 import 'package:cluck_connect/services/widgets.dart';
 import 'package:cluck_connect/farmer/farm_list.dart';
-import 'package:cluck_connect/farmer/details_farmer.dart';
+import 'package:cluck_connect/farmer/farmer_profile.dart';
 import 'package:cluck_connect/farmer/transaction_farmer.dart';
 
 

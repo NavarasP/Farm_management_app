@@ -138,5 +138,6 @@ Future<void> signOut(BuildContext context) async {
     (Route<dynamic> route) => false, // Clear the navigation stack
   );
 }
+
 }
 

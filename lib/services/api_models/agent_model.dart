@@ -35,3 +35,47 @@ class Transaction {
     );
   }
 }
+
+
+
+class ProfileAgent {
+  String id;
+  String email;
+  String role;
+  String createdAt;
+  String updatedAt;
+  String area;
+  String gender;
+  String name;
+  int phoneNumber;
+  String state;
+
+  ProfileAgent({
+    required this.id,
+    required this.email,
+    required this.role,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.area,
+    required this.gender,
+    required this.name,
+    required this.phoneNumber,
+    required this.state,
+  });
+
+  factory ProfileAgent.fromJson(Map<String, dynamic> json) {
+    return ProfileAgent(
+      id: json['_id'] ?? '' ,
+      email: json['email'] ?? '',
+      role: json['role'] ?? '',
+      createdAt: json['createdAt'] ?? '',
+      updatedAt: json['updatedAt'] ?? '',
+      area: json['area'] ?? '',
+      gender: json['gender'] ?? '',
+      name: json['name'] ?? '',
+      phoneNumber: json['phoneNumber'] as int,
+      state: json['state'] ?? '',
+    );
+  }
+
+}

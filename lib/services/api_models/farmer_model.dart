@@ -100,17 +100,17 @@ class Profile {
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
-      id: json['_id'],
-      email: json['email'],
-      role: json['role'],
-      agent: Agent.fromJson(json['agent']),
-      createdAt: json['createdAt'],
-      updatedAt: json['updatedAt'],
-      area: json['area'],
-      gender: json['gender'],
-      name: json['name'],
-      phoneNumber: json['phoneNumber'],
-      state: json['state'],
+      id: json['_id'] ?? '' ,
+      email: json['email'] ?? '',
+      role: json['role'] ?? '',
+      agent: Agent.fromJson(json['agent']) ,
+      createdAt: json['createdAt'] ?? '',
+      updatedAt: json['updatedAt'] ?? '',
+      area: json['area'] ?? '',
+      gender: json['gender'] ?? '',
+      name: json['name'] ?? '',
+      phoneNumber: json['phoneNumber'] ?? '',
+      state: json['state'] ?? '',
     );
   }
 

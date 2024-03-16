@@ -1,8 +1,8 @@
 import 'home_agent.dart';
-import 'details_agent.dart';
 import 'daily_updates.dart';
 import 'package:flutter/material.dart';
 import 'package:cluck_connect/chat/chats.dart';
+import 'package:cluck_connect/agent/agent_profile.dart';
 
 void main() {
   runApp(const MyApp());

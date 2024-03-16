@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'constants.dart';
-import 'constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:cluck_connect/services/api/authentication_api.dart';
+import 'package:cluck_connect/services/api_models/agent_model.dart';
+
 
 class AgentApi {
     static Future<String?> _getToken() {
@@ -15,7 +16,7 @@ class AgentApi {
 
 
     try {
-      final response = await http.get(Uri.parse('/agent/chatusers'),headers: <String, String>{
+      final response = await http.get(Uri.parse('$baseUrl/agent/chatusers'),headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },);
@@ -92,5 +93,52 @@ class AgentApi {
     );
 
     return jsonDecode(response.body);
+  }
+  
+static Future<ProfileAgent> getUserData() async {
+  try {
+    final token = await _getToken();
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/user/me'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> userData = jsonDecode(response.body)['data'];
+      return ProfileAgent.fromJson(userData);
+    } else {
+      throw Exception('Failed to get user data: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error fetching user data: $e');
+    throw Exception('Failed to get user data: $e');
+  }
+}
+
+
+  static Future<Map<String, dynamic>> updateUserData(Map<String, dynamic> userData) async {
+    final token = await _getToken();
+
+    try {
+      final response = await http.patch(
+        Uri.parse('$baseUrl/user/me'),
+        headers: <String, String>{
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(userData),
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Failed to update user data: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to update user data: $e');
+    }
   }
 }
