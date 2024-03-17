@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cluck_connect/services/api/agent_api.dart';
+import 'package:cluck_connect/agent/update_profile_form.dart';
 import 'package:cluck_connect/services/api/authentication_api.dart';
 import 'package:cluck_connect/services/api_models/agent_model.dart';
 
@@ -84,15 +85,15 @@ Future<void> fetchUserData() async {
               _buildProfileDetail('Area', profileDetails!.area),
               _buildProfileDetail('State', profileDetails!.state),
               _buildProfileDetail('Contact Number', profileDetails!.phoneNumber.toString()),
-              const SizedBox(height: 16),
-              _buildCopyAgentIdButton(profileDetails!.id), // Add button to copy agent ID
+              // const SizedBox(height: 16),
+         // Add button to copy agent ID
             ] else ...[
               const CircularProgressIndicator(), // Show loading indicator while fetching data
             ],
           ],
         ),
       ),
-      bottomNavigationBar: Container(
+     bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
@@ -106,13 +107,28 @@ Future<void> fetchUserData() async {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              _buildCopyAgentIdButton(profileDetails!.id),
+                            const SizedBox(width: 20),
+
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UpdateProfileForm()),
+                  );
+                },
+                child: const Text('Update Profile'),
+              ),
+              const SizedBox(width: 20),
               ElevatedButton(
                 onPressed: () {
                   AuthenticationApi authenticationApi = AuthenticationApi();
                   authenticationApi.signOut(context); // Call sign-out method on instance
                 },
                 child: const Text('Sign Out'),
+                
               ),
+              
             ],
           ),
         ),

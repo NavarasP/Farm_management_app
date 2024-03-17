@@ -105,15 +105,15 @@ Future<void> fetchUserData() async {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // ElevatedButton(
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(builder: (context) => UpdateProfileForm()),
-              //     );
-              //   },
-              //   child: const Text('Update Profile'),
-              // ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UpdateProfileForm()),
+                  );
+                },
+                child: const Text('Update Profile'),
+              ),
               const SizedBox(width: 20),
               ElevatedButton(
                 onPressed: () {
