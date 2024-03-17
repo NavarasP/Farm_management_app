@@ -18,57 +18,50 @@ class Farm {
 }
 
 
-class FarmReport {
-  final String id;
-  final DateTime importDate;
-  final DateTime exportDate;
-  final int totalChicks;
-  final int removedChick;
-  final String foodStock;
-  final String medicineOne;
-  final String medicineTwo;
-  final bool isAcknowledged;
-  final Farm farm;
-  final User farmer;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+// class FarmReport {
+//   final String id;
+//   final DateTime importDate;
+//   final DateTime exportDate;
+//   final int totalChicks;
+//   final int removedChick;
+//   final String foodStock;
+//   final String medicineOne;
+//   final String medicineTwo;
+//   final bool isAcknowledged;
+//   final DateTime createdAt;
+//   final DateTime updatedAt;
 
-  FarmReport({
-    required this.id,
-    required this.importDate,
-    required this.exportDate,
-    required this.totalChicks,
-    required this.removedChick,
-    required this.foodStock,
-    required this.medicineOne,
-    required this.medicineTwo,
-    required this.isAcknowledged,
-    required this.farm,
-    required this.farmer,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+//   FarmReport({
+//     required this.id,
+//     required this.importDate,
+//     required this.exportDate,
+//     required this.totalChicks,
+//     required this.removedChick,
+//     required this.foodStock,
+//     required this.medicineOne,
+//     required this.medicineTwo,
+//     required this.isAcknowledged,
+//     required this.createdAt,
+//     required this.updatedAt,
+//   });
 
-  factory FarmReport.fromJson(Map<String, dynamic> json) {
-    return FarmReport(
-      id: json['_id'],
-      importDate: DateTime.parse(json['importDate']),
-      exportDate: DateTime.parse(json['exportDate']),
-      totalChicks: json['totalChicks'],
-      removedChick: json['removedChick'],
-      foodStock: json['foodStock'],
-      medicineOne: json['medicineOne'],
-      medicineTwo: json['medicineTwo'],
-      isAcknowledged: json['isAcknowledged'],
-      farm: Farm.fromJson(json['farm']),
-      farmer: User.fromJson(json['farmer']),
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
-    );
-  }
+//   factory FarmReport.fromJson(Map<String, dynamic> json) {
+//     return FarmReport(
+//       id: json['_id'],
+//       importDate: DateTime.parse(json['importDate']),
+//       exportDate: DateTime.parse(json['exportDate']),
+//       totalChicks: json['totalChicks'],
+//       removedChick: json['removedChick'],
+//       foodStock: json['foodStock'] ?? '',
+//       medicineOne: json['medicineOne'] ?? '',
+//       medicineTwo: json['medicineTwo'] ?? '',
+//       isAcknowledged: json['isAcknowledged'],
+//       createdAt: DateTime.parse(json['createdAt']),
+//       updatedAt: DateTime.parse(json['updatedAt']),
+//     );
+//   }
 
-  get medicine2 => null;
-}
+// }
 
 
 class Profile {
@@ -142,6 +135,39 @@ class Agent {
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'] ,
       v: json['__v'], // Nullable integer
+    );
+  }
+}
+
+
+class Transaction {
+  final String id;
+  final double amount;
+  final String farmArea;
+  final bool isAcknowledged;
+  final bool isCompleted;
+  final String createdAt;
+  final String updatedAt;
+
+  Transaction({
+    required this.id,
+    required this.amount,
+    required this.farmArea,
+    required this.isAcknowledged,
+    required this.isCompleted,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory Transaction.fromJson(Map<String, dynamic> json) {
+    return Transaction(
+      id: json['_id'],
+      amount: json['amount'].toDouble(),
+      farmArea: json['farm']['area'],
+      isAcknowledged: json['isAcknowledged'],
+      isCompleted: json['isComplete'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
     );
   }
 }

@@ -35,7 +35,6 @@ class AgentStockDisplayPage extends StatefulWidget {
 class _AgentStockDisplayPageState extends State<AgentStockDisplayPage> {
   List<String> farmerNames = ['Farmer 1', 'Farmer 2', 'Farmer 3'];
   String selectedFarmer = 'Farmer 1'; 
-  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {

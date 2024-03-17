@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'constants.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cluck_connect/services/api/authentication_api.dart';
 import 'package:cluck_connect/services/api_models/farmer_model.dart';
@@ -44,7 +45,8 @@ class FarmApi {
 
       if (response.statusCode == 200) {
         final List<dynamic> farmsData = jsonDecode(response.body)['data'];
-        List<Farm> farms = farmsData.map((farmData) => Farm.fromJson(farmData)).toList();
+        List<Farm> farms =
+            farmsData.map((farmData) => Farm.fromJson(farmData)).toList();
         return farms;
       } else {
         throw Exception('Failed to load farms: ${response.statusCode}');
@@ -55,34 +57,11 @@ class FarmApi {
     }
   }
 
-static Future<Map<String, dynamic>> createRecord(String jsonData) async {
+static Future<List<dynamic>> getRecordOfFarm(String farmId) async {
   try {
-    final token = await _getToken();
-
-    final response = await http.post(
-      Uri.parse('$baseUrl/farm/create'),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonData
-    );
-
-    return jsonDecode(response.body);
-  } catch (error) {
-    print('Error creating record: $error');
-    // You can throw the error if you want to handle it in the caller function
-    throw error;
-  }
-}
-
-
-static Future<List<FarmReport>> getRecordOfFarm(String farmId) async {
-  try {
-    final token = await _getToken();
-
+    final token = await _getToken(); 
     final response = await http.get(
-      Uri.parse('$baseUrl/reports/$farmId'),
+      Uri.parse('$baseUrl/farmer/reports/$farmId'),
       headers: <String, String>{
         'Authorization': 'Bearer $token',
       },
@@ -90,9 +69,8 @@ static Future<List<FarmReport>> getRecordOfFarm(String farmId) async {
 
     if (response.statusCode == 200) {
       final List<dynamic> farmReportsData = jsonDecode(response.body)['data'];
-      return farmReportsData.map((reportData) => FarmReport.fromJson(reportData)).toList();
+      return farmReportsData;
     } else {
-      // If the response status code is not 200, throw an exception with the error message
       throw Exception('Failed to get farm reports: ${response.statusCode}');
     }
   } catch (e) {
@@ -103,31 +81,82 @@ static Future<List<FarmReport>> getRecordOfFarm(String farmId) async {
   }
 }
 
-static Future<Profile> getUserData() async {
-  try {
+  static Future<List<Transaction>> fetchTransactions() async {
     final token = await _getToken();
 
-    final response = await http.get(
-      Uri.parse('$baseUrl/user/me'),
-      headers: <String, String>{
-        'Authorization': 'Bearer $token',
-      },
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/farmer/transaction'),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        final List<dynamic> transactionData = data['data'];
 
-    if (response.statusCode == 200) {
-      Map<String, dynamic> userData = jsonDecode(response.body)['data'];
-      return Profile.fromJson(userData);
-    } else {
-      throw Exception('Failed to get user data: ${response.statusCode}');
+        return transactionData
+            .map((transactionJson) => Transaction.fromJson(transactionJson))
+            .toList();
+      } else {
+        throw Exception('Failed to fetch transactions: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Error fetching transactions: $e');
+      throw e;
     }
-  } catch (e) {
-    print('Error fetching user data: $e');
-    throw Exception('Failed to get user data: $e');
   }
-}
+
+  static Future<Map<String, dynamic>> createReport(String farmid, String jsonData, ) async {
+    try {
+      final token = await _getToken();
+
+      final response = await http.post(
+        Uri.parse('$baseUrl/farmer/report/$farmid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonData
+      );
+
+      return jsonDecode(response.body);
+    } catch (e) {
+      print('Error creating farm: $e');
+      throw Exception('Failed to create farm: $e');
+    }
+  }
 
 
-  static Future<Map<String, dynamic>> updateUserData(Map<String, dynamic> userData) async {
+
+
+
+
+  static Future<Profile> getUserData() async {
+    try {
+      final token = await _getToken();
+
+      final response = await http.get(
+        Uri.parse('$baseUrl/user/me'),
+        headers: <String, String>{
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> userData = jsonDecode(response.body)['data'];
+        return Profile.fromJson(userData);
+      } else {
+        throw Exception('Failed to get user data: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+      throw Exception('Failed to get user data: $e');
+    }
+  }
+
+  static Future<Map<String, dynamic>> updateUserData(
+      Map<String, dynamic> userData) async {
     final token = await _getToken();
 
     try {

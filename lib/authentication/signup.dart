@@ -4,15 +4,14 @@ import 'package:cluck_connect/authentication/login.dart';
 import 'package:cluck_connect/services/api/authentication_api.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  String selectedUserRole = '';
+  String selectedUserRole = ''; // Track selected user role
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -20,7 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void setSelectedUserRole(String role) {
     setState(() {
-      selectedUserRole = role;
+      selectedUserRole = role; // Update selectedUserRole when the user selects a role
     });
   }
 
@@ -112,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: GlassInputField(
                           hintText: "Agent ID",
                           controller: agentIdController,
-                           // Add a label for the agent ID field
+                          // Add a label for the agent ID field
                         ),
                       ),
                     ],

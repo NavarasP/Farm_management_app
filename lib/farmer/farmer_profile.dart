@@ -73,8 +73,12 @@ class _ProfilePageFarmerState extends State<ProfilePageFarmer> {
             ),
             const SizedBox(height: 16),
             if (profileDetails != null) ...[
+              _buildProfileDetail('ID', profileDetails!.id),
               _buildProfileDetail('Name', profileDetails!.name),
+              _buildProfileDetail('Email', profileDetails!.email),
+              _buildProfileDetail('Role', profileDetails!.role),
               _buildProfileDetail('Gender', profileDetails!.gender),
+              _buildProfileDetail('Area', profileDetails!.area),
               _buildProfileDetail('State', profileDetails!.state),
               _buildProfileDetail('Contact Number', profileDetails!.phoneNumber.toString()),
               // Add more profile details as needed
