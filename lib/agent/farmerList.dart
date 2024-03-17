@@ -52,23 +52,31 @@ Future<void> _fetchFarmers() async {
 }
 
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('List of Farmers'),
-      ),
-      body: ListView.builder(
-        itemCount: _farmers.length,
-        itemBuilder: (context, index) {
-          final farmer = _farmers[index];
-          return ListTile(
-            title: Text(farmer.name),
-            subtitle: Text(farmer.email),
-            // You can add more information about the farmer here
-          );
-        },
-      ),
-    );
-  }
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('List of Farmers'),
+    ),
+    body: _farmers.isEmpty
+        ? Center(
+            child: Text(
+              'No farmers available',
+              style: TextStyle(fontSize: 18),
+            ),
+          )
+        : ListView.builder(
+            itemCount: _farmers.length,
+            itemBuilder: (context, index) {
+              final farmer = _farmers[index];
+              return ListTile(
+                title: Text(farmer.name),
+                subtitle: Text(farmer.email),
+                // You can add more information about the farmer here
+              );
+            },
+          ),
+  );
+}
+
 }
