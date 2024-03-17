@@ -18,52 +18,6 @@ class Farm {
 }
 
 
-// class FarmReport {
-//   final String id;
-//   final DateTime importDate;
-//   final DateTime exportDate;
-//   final int totalChicks;
-//   final int removedChick;
-//   final String foodStock;
-//   final String medicineOne;
-//   final String medicineTwo;
-//   final bool isAcknowledged;
-//   final DateTime createdAt;
-//   final DateTime updatedAt;
-
-//   FarmReport({
-//     required this.id,
-//     required this.importDate,
-//     required this.exportDate,
-//     required this.totalChicks,
-//     required this.removedChick,
-//     required this.foodStock,
-//     required this.medicineOne,
-//     required this.medicineTwo,
-//     required this.isAcknowledged,
-//     required this.createdAt,
-//     required this.updatedAt,
-//   });
-
-//   factory FarmReport.fromJson(Map<String, dynamic> json) {
-//     return FarmReport(
-//       id: json['_id'],
-//       importDate: DateTime.parse(json['importDate']),
-//       exportDate: DateTime.parse(json['exportDate']),
-//       totalChicks: json['totalChicks'],
-//       removedChick: json['removedChick'],
-//       foodStock: json['foodStock'] ?? '',
-//       medicineOne: json['medicineOne'] ?? '',
-//       medicineTwo: json['medicineTwo'] ?? '',
-//       isAcknowledged: json['isAcknowledged'],
-//       createdAt: DateTime.parse(json['createdAt']),
-//       updatedAt: DateTime.parse(json['updatedAt']),
-//     );
-//   }
-
-// }
-
-
 class Profile {
   String id;
   String email;
@@ -74,7 +28,7 @@ class Profile {
   String area;
   String gender;
   String name;
-  int phoneNumber;
+  String phoneNumber;
   String state;
 
   Profile({
@@ -102,7 +56,7 @@ class Profile {
       area: json['area'] ?? '',
       gender: json['gender'] ?? '',
       name: json['name'] ?? '',
-      phoneNumber: json['phoneNumber'] ?? '',
+      phoneNumber: json['phoneNumber'].toString(),
       state: json['state'] ?? '',
     );
   }

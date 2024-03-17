@@ -1,52 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:cluck_connect/agent/home_agent.dart';
 import 'package:cluck_connect/services/widgets.dart';
-import 'package:cluck_connect/farmer/home_farmer.dart';
+import 'package:cluck_connect/authentication/login.dart';
 import 'package:cluck_connect/services/api/authentication_api.dart';
-import 'package:cluck_connect/authentication/signup/role_selection.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class FarmerSignUpScreen extends StatefulWidget {
+  const FarmerSignUpScreen({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _LoginPageState createState() => _LoginPageState();
+  _FarmerSignUpScreenState createState() => _FarmerSignUpScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+class _FarmerSignUpScreenState extends State<FarmerSignUpScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController agentIdController = TextEditingController(); // New controller for agent ID
 
-  void signIn() {
-    String username = usernameController.text.trim();
+  void signUp() {
+    String email = emailController.text.trim();
     String password = passwordController.text.trim();
+    String confirmPassword = confirmPasswordController.text.trim();
+    String agentId = agentIdController.text.trim(); // Get agent ID from the text field
 
-    if (username.isNotEmpty && password.isNotEmpty) {
-      AuthenticationApi().signIn(username, password).then((_) {
-        AuthenticationApi.getUserDetails().then((userDetails) {
-          String? userType = userDetails['role']; // Nullable string
-          if (userType == 'farmer') {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const HomePageFarmer ()));
-          } else if (userType == 'agent') {
-            // Navigate to agent home page
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const HomePageAgent()));
-          } else {
-            debugPrint(userType);
-            // Handle unknown user type
-            debugPrint("Unknown user type");
-          }
-        });
+    if (password == confirmPassword) {
+      if (agentId.isEmpty) {
+        // Show error message if the user doesn't enter an agent ID
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please enter an agent ID.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+        return;
+      }
+
+      AuthenticationApi.signUp("farmer", email, password, agentId: agentId).then((response) {
+        // Handle signup response
+        if (response['status'] == 'success') {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+        } else {
+          // Print error message when signup fails
+          debugPrint("Signup failed: ${response['message']}");
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Signup failed: ${response['message']}'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
       }).catchError((error) {
         // Handle error
-        debugPrint("Signin Error: $error");
+        debugPrint("Signup Error: $error");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Signup error: $error'),
+            duration: Duration(seconds: 2),
+          ),
+        );
       });
     } else {
       // Show error message or toast indicating invalid input
-      debugPrint("Invalid username or password");
+      debugPrint("Invalid input or passwords do not match");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Passwords do not match.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 
@@ -56,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       body: Stack(
-        children: [
+        children: <Widget>[
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -72,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: const Text(
-                    "LOGIN",
+                    "REGISTER",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xff0539bd),
@@ -83,8 +103,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: size.height * 0.03),
                 GlassInputField(
-                  hintText: "Username",
-                  controller: usernameController,
+                  hintText: "Email",
+                  controller: emailController,
                 ),
                 SizedBox(height: size.height * 0.03),
                 GlassInputField(
@@ -92,25 +112,26 @@ class _LoginPageState extends State<LoginPage> {
                   isPassword: true,
                   controller: passwordController,
                 ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: const Text(
-                    "Forgot your password?",
-                    style: TextStyle(fontSize: 12, color: Color(0xFF2661FA)),
-                  ),
+                SizedBox(height: size.height * 0.03),
+                GlassInputField(
+                  hintText: "Confirm Password",
+                  isPassword: true,
+                  controller: confirmPasswordController,
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: size.height * 0.03),
+                GlassInputField(
+                  hintText: "Agent ID",
+                  controller: agentIdController,
+                ),
+                SizedBox(height: size.height * 0.03),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: ElevatedButton(
-                    onPressed: signIn,
+                    onPressed: signUp,
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor: Colors.blue,
+                      backgroundColor: const Color(0xff0581e6),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(80.0),
                       ),
@@ -122,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                       width: size.width * 0.5,
                       padding: const EdgeInsets.all(0),
                       child: const Text(
-                        "LOGIN",
+                        "SIGN UP",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -133,17 +154,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: GestureDetector(
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const RoleSelectionScreen(),
+                        builder: (context) => const LoginPage(),
                       ),
                     ),
                     child: const Text(
-                      "Don't Have an Account? Sign up",
+                      "Already Have an Account? Login",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -160,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
             left: 0,
             child: Image.asset(
               "assets/corner.png",
-              height: 180,
+              height: 150,
             ),
           ),
         ],

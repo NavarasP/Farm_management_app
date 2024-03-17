@@ -3,60 +3,69 @@ import 'package:cluck_connect/services/widgets.dart';
 import 'package:cluck_connect/authentication/login.dart';
 import 'package:cluck_connect/services/api/authentication_api.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class AgentSignUpScreen extends StatefulWidget {
+  const AgentSignUpScreen({Key? key}) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _AgentSignUpScreenState createState() => _AgentSignUpScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  String selectedUserRole = ''; // Track selected user role
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController agentIdController = TextEditingController(); // New controller for agent ID
+class _AgentSignUpScreenState extends State<AgentSignUpScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
-  void setSelectedUserRole(String role) {
-    setState(() {
-      selectedUserRole = role; // Update selectedUserRole when the user selects a role
-    });
-  }
+  Future<void> signUp() async {
+    final String email = emailController.text.trim();
+    final String password = passwordController.text.trim();
+    final String confirmPassword = confirmPasswordController.text.trim();
+      debugPrint('button pressed');
 
-  void signUp() {
-    String username = usernameController.text.trim();
-    String password = passwordController.text.trim();
-    String confirmPassword = confirmPasswordController.text.trim();
-    String agentId = agentIdController.text.trim(); // Get agent ID from the text field
 
-    if (password == confirmPassword) {
-      if (selectedUserRole == "farmer" && agentId.isEmpty) {
-        // Show error message if the user selects "Farmer" but doesn't enter an agent ID
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please enter an agent ID.'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-        return;
-      }
-      
-      AuthenticationApi.signUp(selectedUserRole, username, password, agentId: agentId).then((response) {
+
+    if (password == password) {
+      try {
+        final response =
+            await AuthenticationApi.signUp('agent', email, password);
         // Handle signup response
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
-      }).catchError((error) {
+        if (response['status'] == 'success') {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const LoginPage()));
+        } else {
+          // Print error message when signup fails
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Signup failed: ${response['message']}'),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (error) {
         // Handle error
         debugPrint("Signup Error: $error");
-      });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Signup error: $error'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
     } else {
+      debugPrint('nopassmatch');
       // Show error message or toast indicating invalid input
-      debugPrint("Invalid input or passwords do not match");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Passwords do not match.'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Stack(
@@ -87,8 +96,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: size.height * 0.03),
                 GlassInputField(
-                  hintText: "Username",
-                  controller: usernameController,
+                  hintText: "Email",
+                  controller: emailController,
                 ),
                 SizedBox(height: size.height * 0.03),
                 GlassInputField(
@@ -102,33 +111,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   isPassword: true,
                   controller: confirmPasswordController,
                 ),
-                if (selectedUserRole == "farmer") // Only show agent ID field if the selected role is "Farmer"
-                  Column(
-                    children: [
-                      SizedBox(height: size.height * 0.03),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 40),
-                        child: GlassInputField(
-                          hintText: "Agent ID",
-                          controller: agentIdController,
-                          // Add a label for the agent ID field
-                        ),
-                      ),
-                    ],
-                  ),
-                SizedBox(height: size.height * 0.03),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    UserTypeButton(userType: "Farmer", isSelected: selectedUserRole == "farmer", onSelect: setSelectedUserRole),
-                    const SizedBox(width: 20),
-                    UserTypeButton(userType: "Agent", isSelected: selectedUserRole == "agent", onSelect: setSelectedUserRole),
-                  ],
-                ),
                 SizedBox(height: size.height * 0.03),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: ElevatedButton(
                     onPressed: signUp,
                     style: ElevatedButton.styleFrom(
@@ -156,7 +143,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   child: GestureDetector(
                     onTap: () => Navigator.push(
                       context,

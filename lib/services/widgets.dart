@@ -38,27 +38,24 @@ class GlassInputField extends StatelessWidget {
 
 class UserTypeButton extends StatefulWidget {
   final String userType;
+  final bool isSelected;
+  final void Function(String role) onSelect;
 
-  const UserTypeButton({super.key, required this.userType, required bool isSelected, required void Function(String role) onSelect});
+  const UserTypeButton({required this.userType, required this.isSelected, required this.onSelect});
 
   @override
-  // ignore: library_private_types_in_public_api
   _UserTypeButtonState createState() => _UserTypeButtonState();
 }
 
 class _UserTypeButtonState extends State<UserTypeButton> {
-  bool isSelected = false;
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        setState(() {
-          isSelected = !isSelected;
-        });
+        widget.onSelect(widget.userType);
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(isSelected ? Colors.blue : Colors.grey),
+        backgroundColor: MaterialStateProperty.all<Color>(widget.isSelected ? Colors.blue : Colors.grey),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
@@ -71,14 +68,13 @@ class _UserTypeButtonState extends State<UserTypeButton> {
           widget.userType,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: isSelected ? Colors.white : Colors.black,
+            color: widget.isSelected ? Colors.white : Colors.black,
           ),
         ),
       ),
     );
   }
 }
-
 
 class RectangleCard extends StatelessWidget {
   final String title;
