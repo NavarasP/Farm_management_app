@@ -85,7 +85,9 @@ Future<void> fetchUserData() async {
               _buildProfileDetail('Area', profileDetails!.area),
               _buildProfileDetail('State', profileDetails!.state),
               _buildProfileDetail('Contact Number', profileDetails!.phoneNumber.toString()),
-              // const SizedBox(height: 16),
+              const SizedBox(height: 16),
+              _buildCopyAgentIdButton(profileDetails!.id),
+
          // Add button to copy agent ID
             ] else ...[
               const CircularProgressIndicator(), // Show loading indicator while fetching data
@@ -107,9 +109,6 @@ Future<void> fetchUserData() async {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildCopyAgentIdButton(profileDetails!.id),
-                            const SizedBox(width: 20),
-
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
