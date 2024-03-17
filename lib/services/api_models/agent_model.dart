@@ -47,7 +47,7 @@ class ProfileAgent {
   String area;
   String gender;
   String name;
-  int phoneNumber;
+  String phoneNumber;
   String state;
 
   ProfileAgent({
@@ -73,7 +73,7 @@ class ProfileAgent {
       area: json['area'] ?? '',
       gender: json['gender'] ?? '',
       name: json['name'] ?? '',
-      phoneNumber: json['phoneNumber'] as int,
+      phoneNumber: json['phoneNumber'].toString(),
       state: json['state'] ?? '',
     );
   }
