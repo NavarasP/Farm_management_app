@@ -27,17 +27,19 @@ class _ProfilePageFarmerState extends State<ProfilePageFarmer> {
     return Profile.fromJson(data['data']);
   }
 
-  Future<void> fetchUserData() async {
-    try {
-      Profile userData = await FarmApi.getUserData();
+Future<void> fetchUserData() async {
+  try {
+    Profile userData = await FarmApi.getUserData();
+    if (mounted) {
       setState(() {
         profileDetails = userData;
       });
-    } catch (e) {
-      debugPrint('Failed to fetch user data: $e');
-      // Handle error
     }
+  } catch (e) {
+    debugPrint('Failed to fetch user data: $e');
+    // Handle error
   }
+}
 
   @override
   Widget build(BuildContext context) {
