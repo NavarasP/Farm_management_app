@@ -5,11 +5,17 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cluck_connect/authentication/welcoming_screen.dart';
+import 'package:cluck_connect/services/api_models/farmer_model.dart';
 import 'package:cluck_connect/services/api_models/authentication_model.dart';
+
 
 class AuthenticationApi {
   static const String authTokenKey = 'authToken';
 
+
+    static Future<String?> _getToken() {
+    return AuthenticationApi.getAuthToken();
+  }
   Future<void> saveUserDetails(
       String authToken, String username, String role, String agentId) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -123,6 +129,35 @@ class AuthenticationApi {
     } catch (e) {
       debugPrint('Error fetching user details: $e');
       return null;
+    }
+  }
+
+  static Future<void> updateMyUser(String jsonString) async {
+    final token = await _getToken();
+
+    try {
+      final url = Uri.parse('$baseUrl/user/me');
+
+
+      final response = await http.patch(
+        url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonString,
+      );
+
+      if (response.statusCode == 200) {
+        // User data updated successfully
+        debugPrint('Success');
+      } else {
+        // Error occurred while updating user data
+        debugPrint('Error updating user data: ${response.body}');
+      }
+    } catch (e) {
+      debugPrint('Error updating user data: $e');
+      // Handle error
     }
   }
 

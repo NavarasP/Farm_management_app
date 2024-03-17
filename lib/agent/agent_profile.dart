@@ -22,22 +22,24 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
     fetchUserData();
   }
 
-  ProfileAgent parseUserData(String jsonString) {
-    Map<String, dynamic> data = jsonDecode(jsonString);
-    return ProfileAgent.fromJson(data['data']);
-  }
+  // ProfileAgent parseUserData(String jsonString) {
+  //   Map<String, dynamic> data = jsonDecode(jsonString);
+  //   return ProfileAgent.fromJson(data['data']);
+  // }
 
-  Future<void> fetchUserData() async {
-    try {
-      ProfileAgent userData = await AgentApi.getUserData();
+Future<void> fetchUserData() async {
+  try {
+    ProfileAgent userData = await AgentApi.getUserData();
+    if (mounted) {
       setState(() {
         profileDetails = userData;
       });
-    } catch (e) {
-      debugPrint('Failed to fetch user data: $e');
-      // Handle error
     }
+  } catch (e) {
+    debugPrint('Failed to fetch user data: $e');
+    // Handle error
   }
+}
 
   @override
   Widget build(BuildContext context) {

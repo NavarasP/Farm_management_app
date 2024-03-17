@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:cluck_connect/services/api/farmers_api.dart';
+import 'package:cluck_connect/farmer/update_profile_form.dart';
 import 'package:cluck_connect/services/api/authentication_api.dart';
 import 'package:cluck_connect/services/api_models/farmer_model.dart';
 
@@ -102,6 +103,16 @@ class _ProfilePageFarmerState extends State<ProfilePageFarmer> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => UpdateProfileForm()),
+              //     );
+              //   },
+              //   child: const Text('Update Profile'),
+              // ),
+              const SizedBox(width: 20),
               ElevatedButton(
                 onPressed: () {
                   AuthenticationApi authenticationApi = AuthenticationApi();
