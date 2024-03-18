@@ -165,7 +165,18 @@ final email = prefs.getString('username');
     }
   }
 
+    static Future<Map<String, dynamic>> getname( String id) async {
+              final token = await _getToken();
 
+    final response = await http.get(
+      Uri.parse('$baseUrl/user/getname/$id'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    return jsonDecode(response.body);
+  }
 
 Future<void> signOut(BuildContext context) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();

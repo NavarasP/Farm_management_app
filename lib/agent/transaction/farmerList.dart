@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cluck_connect/services/api/agent_api.dart'; 
+import 'package:cluck_connect/agent/transaction/farmlist.dart';
 
 
 class Farmer {
@@ -52,13 +53,13 @@ Future<void> _fetchFarmers() async {
 }
 
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text('List of Farmers'),
-    ),
-    body: _farmers.isEmpty
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('List of Farmers'),
+      ),
+      body: _farmers.isEmpty
         ? Center(
             child: Text(
               'No farmers available',
@@ -72,11 +73,17 @@ Widget build(BuildContext context) {
               return ListTile(
                 title: Text(farmer.name),
                 subtitle: Text(farmer.email),
-                // You can add more information about the farmer here
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FarmListPage(farmerid: farmer.id,farmername: farmer.name,),
+                    ),
+                  );
+                },
               );
             },
           ),
-  );
-}
-
+    );
+  }
 }

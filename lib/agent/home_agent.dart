@@ -1,11 +1,13 @@
 import 'details_agent.dart';
-import 'daily_updates.dart';
 import 'package:flutter/material.dart';
+import 'dailyupdate/daily_updates.dart';
 import 'package:cluck_connect/chat/chats.dart';
-import 'package:cluck_connect/agent/farmerList.dart';
 import 'package:cluck_connect/services/widgets.dart';
 import 'package:cluck_connect/agent/agent_profile.dart';
-import 'package:cluck_connect/agent/transaction_agent.dart';
+import 'package:cluck_connect/agent/transaction/farmerList.dart';
+import 'package:cluck_connect/agent/dailyupdate/dailyfarmerList.dart';
+import 'package:cluck_connect/agent/transaction/transaction_agent.dart';
+
 
 
 class HomePageAgent extends StatefulWidget {
@@ -169,9 +171,9 @@ class _HomePageAgentState extends State<HomePageAgent> {
           ),
         ),
       ),
-      const FarmerListPage(),
+      const UpdateFarmerListPage(),
       const ChatUsersPage(),
-      const TransactionPageAgent(),
+      const FarmerListPage(),
       const ProfilePageAgent(),
     ];
   }

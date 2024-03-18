@@ -37,6 +37,57 @@ class AgentApi {
     }
   }
 
+static Future<List<dynamic>> getRecordOfFarm(String farmId) async {
+  try {
+    final token = await _getToken(); 
+    final response = await http.get(
+      Uri.parse('$baseUrl/agent/reports/$farmId'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> farmReportsData = jsonDecode(response.body)['data'];
+      return farmReportsData;
+    } else {
+      throw Exception('Failed to get farm reports: ${response.statusCode}');
+    }
+  } catch (e) {
+    // Print the error message if an exception occurs
+    print('Error fetching farm reports: $e');
+    // Re-throw the exception to propagate it further
+    throw e;
+  }
+}
+
+
+
+    static Future<List<Map<String, dynamic>>?> fetchFarms(String farmerId) async {
+          final token = await _getToken();
+
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/agent/farms/$farmerId'),headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },);
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        final List<dynamic> farmersData = data['data'];
+        final List<Map<String, dynamic>> farmers = [];
+        for (var farmerData in farmersData) {
+          farmers.add(Map<String, dynamic>.from(farmerData));
+        }
+        return farmers;
+      } else {
+        throw Exception('Failed to fetch farmers: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching farmers: $e');
+      return null;
+    }
+  }
+
   static Future<Map<String, dynamic>> createTransaction(
       double amount,
       String farmerId,
@@ -47,7 +98,7 @@ class AgentApi {
                   final token = await _getToken();
 
     final response = await http.post(
-      Uri.parse('$baseUrl/trade/create'),
+      Uri.parse('$baseUrl/agent/trade/create'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -64,12 +115,44 @@ class AgentApi {
     return jsonDecode(response.body);
   }
 
+
+  static Future<Map<String, dynamic>> getTransaction( String farmId) async {
+              final token = await _getToken();
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/agent/trade/$farmId'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    return jsonDecode(response.body);
+  }
+  
+
+      static Future<Map<String, dynamic>> getFarmName( String id) async {
+              final token = await _getToken();
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/agent/getfarmname/$id'),
+      headers: <String, String>{
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    return jsonDecode(response.body);
+  }
+
+
+
+
+
   static Future<Map<String, dynamic>> acknowledgeReport( String reportId) async {
 
               final token = await _getToken();
 
     final response = await http.patch(
-      Uri.parse('$baseUrl/report/$reportId'),
+      Uri.parse('$baseUrl/agent/report/$reportId'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -86,7 +169,7 @@ class AgentApi {
               final token = await _getToken();
 
     final response = await http.get(
-      Uri.parse('$baseUrl/report/today/$farmerId'),
+      Uri.parse('$baseUrl/agent/report/today/$farmerId'),
       headers: <String, String>{
         'Authorization': 'Bearer $token',
       },
@@ -95,6 +178,11 @@ class AgentApi {
     return jsonDecode(response.body);
   }
   
+
+
+
+
+
 static Future<ProfileAgent> getUserData() async {
   try {
     final token = await _getToken();
