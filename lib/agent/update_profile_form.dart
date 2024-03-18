@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:cluck_connect/agent/home_agent.dart';
+import 'package:cluck_connect/services/widgets.dart';
 import 'package:cluck_connect/services/api/authentication_api.dart';
 
 class UpdateProfileForm extends StatefulWidget {
@@ -10,104 +12,132 @@ class UpdateProfileForm extends StatefulWidget {
 }
 
 class _UpdateProfileFormState extends State<UpdateProfileForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late String _name;
-  late String _area;
-  late String _state;
-  late String _phoneNumber;
-  late String _gender;
+
+final nameController = TextEditingController();
+  final areaController = TextEditingController();
+    final stateController = TextEditingController();
+
+  final genderController = TextEditingController();
+
+
+ void update() {
+  String name = nameController.text.trim();
+  String area = areaController.text.trim();
+  String state = stateController.text.trim();
+  String gender = genderController.text.trim();
+
+  if (name.isNotEmpty && area.isNotEmpty) {
+    AuthenticationApi.updateMyUser(name, area, state, gender).then((_) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePageAgent()),
+      );
+    });
+  }
+}
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Update Profile'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Name'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _name = value!,
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xff57aef0), Color(0xFFFFFFFF)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Area'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your area';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _area = value!,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'State'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your state';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _state = value!,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Phone Number'),
-                keyboardType: TextInputType.phone,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your phone number';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _phoneNumber = value!,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Gender'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your gender';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _gender = value!,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    try {
-                      final Map<String, dynamic> updatedProfile = {
-                        'name': _name,
-                        'area': _area,
-                        'state': _state,
-                        'phoneNumber': int.parse(_phoneNumber),
-                        'gender': _gender,
-                      };
-                      final jsonString = jsonEncode(updatedProfile);
-                      await AuthenticationApi.updateMyUser(jsonString);
-                      Navigator.of(context).pop();
-                    } catch (e) {
-                      debugPrint('Failed to update profile: $e');
-                    }
-                  }
-                },
-                child: const Text('Update Profile'),
-              ),
-            ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: const Text(
+                    "UPDATE",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff0539bd),
+                      fontSize: 36,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                SizedBox(height: size.height * 0.03),
+                GlassInputField(
+                  hintText: "Name",
+                  controller: nameController,
+                ),
+                SizedBox(height: size.height * 0.03),
+                GlassInputField(
+                  hintText: "Area",
+                  isPassword: true,
+                  controller: areaController,
+                ),
+                SizedBox(height: size.height * 0.03),
+                GlassInputField(
+                  hintText: "State",
+                  isPassword: true,
+                  controller: stateController,
+                ),
+                SizedBox(height: size.height * 0.03),
+                GlassInputField(
+                  hintText: "Gender",
+                  isPassword: true,
+                  controller: genderController,
+                ),
+                
+                const SizedBox(height: 10),
+                Container(
+                  alignment: Alignment.centerRight,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  child: ElevatedButton(
+                    onPressed: update,
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(80.0),
+                      ),
+                      padding: const EdgeInsets.all(0),
+                    ),
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 50.0,
+                      width: size.width * 0.5,
+                      padding: const EdgeInsets.all(0),
+                      child: const Text(
+                        "submit",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Image.asset(
+              "assets/corner.png",
+              height: 180,
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+
+
+

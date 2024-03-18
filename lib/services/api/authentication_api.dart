@@ -2,10 +2,8 @@ import 'dart:convert';
 import 'constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cluck_connect/authentication/welcoming_screen.dart';
-import 'package:cluck_connect/services/api_models/farmer_model.dart';
 import 'package:cluck_connect/services/api_models/authentication_model.dart';
 
 
@@ -132,12 +130,12 @@ class AuthenticationApi {
     }
   }
 
-  static Future<void> updateMyUser(String jsonString) async {
+  static Future<void> updateMyUser(String name, String area, String state, String gender) async {
     final token = await _getToken();
-
+final SharedPreferences prefs = await SharedPreferences.getInstance();
+final email = prefs.getString('username');
     try {
       final url = Uri.parse('$baseUrl/user/me');
-
 
       final response = await http.patch(
         url,
@@ -145,7 +143,13 @@ class AuthenticationApi {
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer $token',
         },
-        body: jsonString,
+        body: jsonEncode({
+          "name": name,
+          "email":email,
+          "gender": gender,
+          "state": state,
+          "area": area
+        }),
       );
 
       if (response.statusCode == 200) {
@@ -160,6 +164,7 @@ class AuthenticationApi {
       // Handle error
     }
   }
+
 
 
 Future<void> signOut(BuildContext context) async {

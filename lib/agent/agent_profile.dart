@@ -23,10 +23,10 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
     fetchUserData();
   }
 
-  // ProfileAgent parseUserData(String jsonString) {
-  //   Map<String, dynamic> data = jsonDecode(jsonString);
-  //   return ProfileAgent.fromJson(data['data']);
-  // }
+  ProfileAgent parseUserData(String jsonString) {
+    Map<String, dynamic> data = jsonDecode(jsonString);
+    return ProfileAgent.fromJson(data['data']);
+  }
 
 Future<void> fetchUserData() async {
   try {
