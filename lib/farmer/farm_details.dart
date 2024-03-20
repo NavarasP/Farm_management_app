@@ -116,9 +116,9 @@ class _FarmDetailsPageState extends State<FarmDetailsPage> with SingleTickerProv
   }
 
 
-  Future<List<dynamic>> fetchFarmReports(String farmId) async {
+  Future<List<dynamic>> fetchFarmReports() async {
     try {
-      final List<dynamic> farmReports = await FarmApi.getRecordOfFarm(farmId);
+      final List<dynamic> farmReports = await FarmApi.getRecordOfFarm(widget.farmId);
       return farmReports;
     } catch (e) {
       debugPrint('Error fetching farm reports: $e');
@@ -128,7 +128,7 @@ class _FarmDetailsPageState extends State<FarmDetailsPage> with SingleTickerProv
 
   Widget _buildReportTab() {
     return FutureBuilder(
-      future: fetchFarmReports(widget.farmId),
+      future: fetchFarmReports(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -193,7 +193,9 @@ class _FarmDetailsPageState extends State<FarmDetailsPage> with SingleTickerProv
 
     FarmApi.createReport(farmId, jsonData).then((response) {
       debugPrint('Farm created successfully: $response');
-          setState(() {});
+          setState(() {
+fetchFarmReports()
+});
 
     }).catchError((error) {
       debugPrint('Error creating farm: $error');
