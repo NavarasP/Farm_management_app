@@ -194,7 +194,7 @@ class _FarmDetailsPageState extends State<FarmDetailsPage> with SingleTickerProv
     FarmApi.createReport(farmId, jsonData).then((response) {
       debugPrint('Farm created successfully: $response');
           setState(() {
-fetchFarmReports()
+fetchFarmReports();
 });
 
     }).catchError((error) {
