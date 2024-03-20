@@ -58,7 +58,7 @@ final nameController = TextEditingController();
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: const Text(
-                    "LOGIN",
+                    "UPDATE",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xff0539bd),
