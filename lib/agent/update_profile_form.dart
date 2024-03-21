@@ -16,6 +16,7 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
 final nameController = TextEditingController();
   final areaController = TextEditingController();
     final stateController = TextEditingController();
+final phonenumberController = Text editing controller();
 
   final genderController = TextEditingController();
 
@@ -25,14 +26,15 @@ final nameController = TextEditingController();
   String area = areaController.text.trim();
   String state = stateController.text.trim();
   String gender = genderController.text.trim();
+string phone = phonenumberController.text.trim();
 
   if (name.isNotEmpty && area.isNotEmpty) {
-    AuthenticationApi.updateMyUser(name, area, state, gender).then((_) {
+    AuthenticationApi.updateMyUser(name, area, state, gender,phone).then((_) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePageAgent()),
       );
-    });
+    }); 
   }
 }
 
@@ -89,6 +91,12 @@ final nameController = TextEditingController();
                   hintText: "Gender",
                   isPassword: true,
                   controller: genderController,
+                ),
+                SizedBox(height: size.height * 0.03),
+                GlassInputField(
+                  hintText: "Gender",
+                  isPassword: true,
+                  controller: phonenumberController,
                 ),
                 
                 const SizedBox(height: 10),
