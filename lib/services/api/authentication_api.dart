@@ -130,7 +130,7 @@ class AuthenticationApi {
     }
   }
 
-  static Future<void> updateMyUser(String name, String area, String state, String gender) async {
+  static Future<void> updateMyUser(String name, String area, String state, String gender, String phone) async {
     final token = await _getToken();
 final SharedPreferences prefs = await SharedPreferences.getInstance();
 final email = prefs.getString('username');
@@ -148,7 +148,8 @@ final email = prefs.getString('username');
           "email":email,
           "gender": gender,
           "state": state,
-          "area": area
+          "area": area,
+          "phone": int.parse(phone),
         }),
       );
 
