@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cluck_connect/chat/chatpage.dart';
-import 'package:cluck_connect/chat/farmerlist.dart';
+import 'package:cluck_connect/chat/farmer_list.dart';
 import 'package:cluck_connect/services/api/chat_api.dart';
 import 'package:cluck_connect/services/api_models/chat_model.dart';
 import 'package:cluck_connect/services/api/authentication_api.dart';
