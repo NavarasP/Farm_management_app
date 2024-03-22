@@ -18,6 +18,7 @@ final nameController = TextEditingController();
     final stateController = TextEditingController();
 
   final genderController = TextEditingController();
+final phonenumberController = TextEditingController();
 
 
   void update() {
@@ -25,9 +26,11 @@ final nameController = TextEditingController();
     String area = areaController.text.trim();
     String state = stateController.text.trim();
     String gender = genderController.text.trim();
+    String phone = phonenumberController.text.trim();
+
 
   if (name.isNotEmpty && area.isNotEmpty) {
-    AuthenticationApi.updateMyUser(name, area, state, gender).then((_) {
+    AuthenticationApi.updateMyUser(name, area, state, gender,phone).then((_) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePageFarmer()),
@@ -89,6 +92,12 @@ final nameController = TextEditingController();
                   hintText: "Gender",
                   isPassword: true,
                   controller: genderController,
+                ),
+                SizedBox(height: size.height * 0.03),
+                GlassInputField(
+                  hintText: "Phone",
+                  isPassword: true,
+                  controller: phonenumberController,
                 ),
                 
                 const SizedBox(height: 10),

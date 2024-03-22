@@ -16,7 +16,7 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
 final nameController = TextEditingController();
   final areaController = TextEditingController();
     final stateController = TextEditingController();
-final phonenumberController = Text editing controller();
+final phonenumberController = TextEditingController();
 
   final genderController = TextEditingController();
 
@@ -26,7 +26,7 @@ final phonenumberController = Text editing controller();
   String area = areaController.text.trim();
   String state = stateController.text.trim();
   String gender = genderController.text.trim();
-string phone = phonenumberController.text.trim();
+String phone = phonenumberController.text.trim();
 
   if (name.isNotEmpty && area.isNotEmpty) {
     AuthenticationApi.updateMyUser(name, area, state, gender,phone).then((_) {
@@ -94,7 +94,7 @@ string phone = phonenumberController.text.trim();
                 ),
                 SizedBox(height: size.height * 0.03),
                 GlassInputField(
-                  hintText: "Gender",
+                  hintText: "Phone",
                   isPassword: true,
                   controller: phonenumberController,
                 ),
