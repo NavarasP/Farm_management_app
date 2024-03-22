@@ -5,9 +5,10 @@ import 'package:cluck_connect/services/api/authentication_api.dart';
 import 'package:cluck_connect/authentication/welcoming_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SplashScreenState createState() => _SplashScreenState();
 }
 

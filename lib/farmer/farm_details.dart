@@ -5,9 +5,10 @@ import 'package:cluck_connect/services/api/farmers_api.dart';
 class FarmDetailsPage extends StatefulWidget {
   final String farmId;
 
-  const FarmDetailsPage({Key? key, required this.farmId}) : super(key: key);
+  const FarmDetailsPage({super.key, required this.farmId});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FarmDetailsPageState createState() => _FarmDetailsPageState();
 }
 
@@ -66,33 +67,33 @@ class _FarmDetailsPageState extends State<FarmDetailsPage> with SingleTickerProv
           children: [
             TextFormField(
               controller: importDateController,
-              decoration: InputDecoration(labelText: 'Import Date YYYY/MM/DD'),
+              decoration: const InputDecoration(labelText: 'Import Date YYYY/MM/DD'),
             ),
             TextFormField(
               controller: exportDateController,
-              decoration: InputDecoration(labelText: 'Export Date YYYY/MM/DD'),
+              decoration: const InputDecoration(labelText: 'Export Date YYYY/MM/DD'),
             ),
             TextFormField(
               controller: totalChicksController,
-              decoration: InputDecoration(labelText: 'Total Chicks'),
+              decoration: const InputDecoration(labelText: 'Total Chicks'),
               keyboardType: TextInputType.number,
             ),
             TextFormField(
               controller: removedChickController,
-              decoration: InputDecoration(labelText: 'Removed Chicks'),
+              decoration: const InputDecoration(labelText: 'Removed Chicks'),
               keyboardType: TextInputType.number,
             ),
             TextFormField(
               controller: foodStockController,
-              decoration: InputDecoration(labelText: 'Food Stock'),
+              decoration: const InputDecoration(labelText: 'Food Stock'),
             ),
             TextFormField(
               controller: medicineOneController,
-              decoration: InputDecoration(labelText: 'Medicine 1'),
+              decoration: const InputDecoration(labelText: 'Medicine 1'),
             ),
             TextFormField(
               controller: medicineTwoController,
-              decoration: InputDecoration(labelText: 'Medicine 2'),
+              decoration: const InputDecoration(labelText: 'Medicine 2'),
             ),
             ElevatedButton(
               onPressed: () {
@@ -122,7 +123,7 @@ class _FarmDetailsPageState extends State<FarmDetailsPage> with SingleTickerProv
       return farmReports;
     } catch (e) {
       debugPrint('Error fetching farm reports: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -137,7 +138,7 @@ class _FarmDetailsPageState extends State<FarmDetailsPage> with SingleTickerProv
         } else {
           List<dynamic> reports = snapshot.data as List<dynamic>;
           if (reports.isEmpty) {
-            return Center(
+            return const Center(
               child: Text('No reports available'),
             );
           } else {

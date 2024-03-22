@@ -1,4 +1,3 @@
-import 'package:cluck_connect/services/api_models/authentication_model.dart';
 
 class Farm {
   final String id;

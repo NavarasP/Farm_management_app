@@ -6,11 +6,11 @@ class GlassInputField extends StatelessWidget {
   final TextEditingController controller;
 
   const GlassInputField({
-    Key? key,
+    super.key,
     required this.hintText,
     this.isPassword = false,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +41,10 @@ class UserTypeButton extends StatefulWidget {
   final bool isSelected;
   final void Function(String role) onSelect;
 
-  const UserTypeButton({required this.userType, required this.isSelected, required this.onSelect});
+  const UserTypeButton({super.key, required this.userType, required this.isSelected, required this.onSelect});
 
   @override
+  // ignore: library_private_types_in_public_api
   _UserTypeButtonState createState() => _UserTypeButtonState();
 }
 

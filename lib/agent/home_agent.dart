@@ -1,12 +1,9 @@
-import 'details_agent.dart';
 import 'package:flutter/material.dart';
-import 'dailyupdate/daily_updates.dart';
 import 'package:cluck_connect/chat/chats.dart';
 import 'package:cluck_connect/services/widgets.dart';
 import 'package:cluck_connect/agent/agent_profile.dart';
-import 'package:cluck_connect/agent/transaction/farmerList.dart';
-import 'package:cluck_connect/agent/dailyupdate/dailyfarmerList.dart';
-import 'package:cluck_connect/agent/transaction/transaction_agent.dart';
+import 'package:cluck_connect/agent/transaction/farmerlist.dart';
+import 'package:cluck_connect/agent/dailyupdate/dailyfarmerlist.dart';
 
 
 

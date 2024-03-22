@@ -1,14 +1,14 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:cluck_connect/services/api/agent_api.dart';
 import 'package:cluck_connect/services/api/farmers_api.dart';
 
 class FarmDetailsPageagent extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final farmId;
 
   const FarmDetailsPageagent({super.key,   required this.farmId});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FarmDetailsPageagentState createState() => _FarmDetailsPageagentState();
 }
 
@@ -57,7 +57,7 @@ class _FarmDetailsPageagentState extends State<FarmDetailsPageagent> with Single
       return farmReports;
     } catch (e) {
       debugPrint('Error fetching farm reports: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -72,7 +72,7 @@ class _FarmDetailsPageagentState extends State<FarmDetailsPageagent> with Single
         } else {
           List<dynamic> reports = snapshot.data as List<dynamic>;
           if (reports.isEmpty) {
-            return Center(
+            return const Center(
               child: Text('No reports available'),
             );
           } else {

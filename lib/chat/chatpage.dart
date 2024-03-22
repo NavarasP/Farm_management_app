@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:cluck_connect/farmer/home_farmer.dart';
 import 'package:cluck_connect/services/api/chat_api.dart';
 
 class ChatRoomScreen extends StatefulWidget {
-  const ChatRoomScreen({Key? key, required this.chatRoomId}) : super(key: key);
+  const ChatRoomScreen({super.key, required this.chatRoomId});
 
   final String chatRoomId;
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChatRoomScreenState createState() => _ChatRoomScreenState();
 }
 
@@ -39,25 +39,20 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     final fetchMessagesResponse = await ChatService.fetchChatMessages(chatId);
 
     // Check if the response is a Map<String, dynamic>
-    if (fetchMessagesResponse is Map<String, dynamic>) {
-      // Extract the 'data' field from the response
-      final List<dynamic> messageData = fetchMessagesResponse['data'];
+    // Extract the 'data' field from the response
+    final List<dynamic> messageData = fetchMessagesResponse['data'];
 
-      // Convert each message data into a Message object and add it to _messages list
-      List<Message> messages = messageData.map((messageJson) => Message.fromJson(messageJson)).toList();
+    // Convert each message data into a Message object and add it to _messages list
+    List<Message> messages = messageData.map((messageJson) => Message.fromJson(messageJson)).toList();
 
-      // Sort the messages based on the 'created' field
-      messages.sort((a, b) => DateTime.parse(a.created).compareTo(DateTime.parse(b.created)));
+    // Sort the messages based on the 'created' field
+    messages.sort((a, b) => DateTime.parse(a.created).compareTo(DateTime.parse(b.created)));
 
-      setState(() {
-        _messages.clear();
-        _messages.addAll(messages);
-      });
-    } else {
-      // Handle the case when the response is not as expected
-      throw Exception('Unexpected response format');
-    }
-  } catch (e) {
+    setState(() {
+      _messages.clear();
+      _messages.addAll(messages);
+    });
+    } catch (e) {
     debugPrint("Error fetching messages: $e");
   }
 }
@@ -88,7 +83,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
         children: [
           Expanded(
             child: _messages.isEmpty
-                ? Center(
+                ? const Center(
                     child: Text(
                       'No messages available',
                       style: TextStyle(fontSize: 16),

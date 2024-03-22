@@ -15,13 +15,16 @@ class Farm {
 
 
 class FarmListPage extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final farmerid;
   
+  // ignore: prefer_typing_uninitialized_variables
   final farmername;
 
-  const FarmListPage({Key? key, required this.farmerid, required this.farmername}) : super(key: key);
+  const FarmListPage({super.key, required this.farmerid, required this.farmername});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FarmListPageState createState() => _FarmListPageState();
 }
 
@@ -63,7 +66,7 @@ class _FarmListPageState extends State<FarmListPage> {
         ? Center(
             child: Text(
               'No farms available for ${widget.farmername}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
           )
         : ListView.builder(

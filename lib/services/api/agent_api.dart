@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'constants.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cluck_connect/services/api/authentication_api.dart';
 import 'package:cluck_connect/services/api_models/agent_model.dart';
+
 
 
 class AgentApi {
@@ -32,7 +34,7 @@ class AgentApi {
         throw Exception('Failed to fetch farmers: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching farmers: $e');
+      debugPrint('Error fetching farmers: $e');
       return null;
     }
   }
@@ -55,9 +57,9 @@ static Future<List<dynamic>> getRecordOfFarm(String farmId) async {
     }
   } catch (e) {
     // Print the error message if an exception occurs
-    print('Error fetching farm reports: $e');
+    debugPrint('Error fetching farm reports: $e');
     // Re-throw the exception to propagate it further
-    throw e;
+    rethrow;
   }
 }
 
@@ -83,7 +85,7 @@ static Future<List<dynamic>> getRecordOfFarm(String farmId) async {
         throw Exception('Failed to fetch farmers: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching farmers: $e');
+      debugPrint('Error fetching farmers: $e');
       return null;
     }
   }
@@ -201,7 +203,7 @@ static Future<ProfileAgent> getUserData() async {
       throw Exception('Failed to get user data: ${response.statusCode}');
     }
   } catch (e) {
-    print('Error fetching user data: $e');
+    debugPrint('Error fetching user data: $e');
     throw Exception('Failed to get user data: $e');
   }
 }

@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'constants.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cluck_connect/services/api_models/chat_model.dart';
 import 'package:cluck_connect/services/api/authentication_api.dart';
+
 
 class ChatService {
   static Future<String?> _getToken() {
@@ -26,7 +28,7 @@ class ChatService {
         throw Exception('Failed to access or create chat');
       }
     } catch (e) {
-      print('Error accessing or creating chat: $e');
+      debugPrint('Error accessing or creating chat: $e');
       return null;
     }
   }
@@ -48,7 +50,7 @@ class ChatService {
         throw Exception('Failed to fetch chats');
       }
     } catch (e) {
-      print('Error fetching chats: $e');
+      debugPrint('Error fetching chats: $e');
       return [];
     }
   }
@@ -68,18 +70,19 @@ class ChatService {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print('${response.statusCode}');
+        debugPrint('${response.statusCode}');
         
       } else {
         // Only print errors for non-200 and non-201 status codes
-        print('Error sending message: ${response.statusCode}');
+        debugPrint('Error sending message: ${response.statusCode}');
         return null;
       }
     } catch (e) {
       // Print any other caught errors
-      print('Error sending message: $e');
+      debugPrint('Error sending message: $e');
       return null;
     }
+    return null;
   }
 
 
@@ -99,13 +102,10 @@ class ChatService {
         throw Exception('Failed to fetch chat messages: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching chat messages: $e');
+      debugPrint('Error fetching chat messages: $e');
       return {}; // Return an empty map in case of error
     }
   }
 
-
-
-  
   }
 

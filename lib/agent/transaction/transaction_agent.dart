@@ -22,19 +22,20 @@ class TransactionPage extends StatefulWidget {
   final String farmerName;
 
   const TransactionPage({
-    Key? key,
+    super.key,
     required this.farmId,
     required this.farmerId,
     required this.farmerName,
-  }) : super(key: key);
+  });
 
   @override
+  // ignore: library_private_types_in_public_api
   _TransactionPageState createState() => _TransactionPageState();
 }
 
 class _TransactionPageState extends State<TransactionPage> {
   List<TransactionDetails> _transactions = [];
-  TextEditingController _amountController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
 
   @override
   void initState() {
@@ -91,14 +92,13 @@ class _TransactionPageState extends State<TransactionPage> {
   Future<void> _submitTransactionData() async {
     debugPrint("button");
     try {
-      double amount = await double.parse(_amountController.text);
+      double amount = double.parse(_amountController.text);
       // Assuming you have the date and amount data available
       await AgentApi.createTransaction(
           amount, widget.farmerId, widget.farmId, true, true);
       // Assuming createTransaction is a method in AgentApi to submit the transaction data
     } catch (e) {
       debugPrint("Error submitting transaction data: $e");
-      // Optionally, show a snackbar or dialog to inform the user about the error
     }
     debugPrint("finin");
 
@@ -158,7 +158,7 @@ class _TransactionPageState extends State<TransactionPage> {
                   TextField(
                     controller: _amountController,
                     keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
+                        const TextInputType.numberWithOptions(decimal: true),
                     decoration: const InputDecoration(
                       labelText: 'Enter Amount',
                       border: OutlineInputBorder(),

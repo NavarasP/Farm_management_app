@@ -4,9 +4,10 @@ import 'package:cluck_connect/services/api_models/farmer_model.dart';
 
 
 class IncomePage extends StatefulWidget {
-  const IncomePage({Key? key}) : super(key: key);
+  const IncomePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _IncomePageState createState() => _IncomePageState();
 }
 
@@ -96,7 +97,7 @@ class _IncomePageState extends State<IncomePage> {
 class TransactionCard extends StatelessWidget {
   final Transaction transaction;
 
-  const TransactionCard({Key? key, required this.transaction}) : super(key: key);
+  const TransactionCard({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {

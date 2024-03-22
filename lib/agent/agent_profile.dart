@@ -7,9 +7,10 @@ import 'package:cluck_connect/services/api/authentication_api.dart';
 import 'package:cluck_connect/services/api_models/agent_model.dart';
 
 class ProfilePageAgent extends StatefulWidget {
-  const ProfilePageAgent({Key? key}) : super(key: key);
+  const ProfilePageAgent({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ProfilePageAgentState createState() => _ProfilePageAgentState();
 }
 
@@ -19,7 +20,6 @@ class _ProfilePageAgentState extends State<ProfilePageAgent> {
   @override
   void initState() {
     super.initState();
-    // Call the function to fetch user data
     fetchUserData();
   }
 
@@ -38,7 +38,6 @@ Future<void> fetchUserData() async {
     }
   } catch (e) {
     debugPrint('Failed to fetch user data: $e');
-    // Handle error
   }
 }
 
@@ -85,12 +84,9 @@ Future<void> fetchUserData() async {
               _buildProfileDetail('Area', profileDetails!.area),
               _buildProfileDetail('State', profileDetails!.state),
               _buildProfileDetail('Contact Number', profileDetails!.phoneNumber.toString()),
-              const SizedBox(height: 16),
-              _buildCopyAgentIdButton(profileDetails!.id),
 
-         // Add button to copy agent ID
             ] else ...[
-              const CircularProgressIndicator(), // Show loading indicator while fetching data
+              const CircularProgressIndicator(), 
             ],
           ],
         ),
@@ -113,7 +109,7 @@ Future<void> fetchUserData() async {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => UpdateProfileForm()),
+                    MaterialPageRoute(builder: (context) => const UpdateProfileForm()),
                   );
                 },
                 child: const Text('Update Profile'),
@@ -122,11 +118,14 @@ Future<void> fetchUserData() async {
               ElevatedButton(
                 onPressed: () {
                   AuthenticationApi authenticationApi = AuthenticationApi();
-                  authenticationApi.signOut(context); // Call sign-out method on instance
+                  authenticationApi.signOut(context); 
                 },
                 child: const Text('Sign Out'),
                 
               ),
+                            const SizedBox(width: 20),
+              _buildCopyAgentIdButton(profileDetails!.id),
+
               
             ],
           ),

@@ -27,7 +27,7 @@ class FarmApi {
 
       return jsonDecode(response.body);
     } catch (e) {
-      print('Error creating farm: $e');
+      debugPrint('Error creating farm: $e');
       throw Exception('Failed to create farm: $e');
     }
   }
@@ -52,7 +52,7 @@ class FarmApi {
         throw Exception('Failed to load farms: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error loading farms: $e');
+      debugPrint('Error loading farms: $e');
       throw Exception('Failed to load farms: $e');
     }
   }
@@ -75,9 +75,9 @@ static Future<List<dynamic>> getRecordOfFarm(String farmId) async {
     }
   } catch (e) {
     // Print the error message if an exception occurs
-    print('Error fetching farm reports: $e');
+    debugPrint('Error fetching farm reports: $e');
     // Re-throw the exception to propagate it further
-    throw e;
+    rethrow;
   }
 }
 
@@ -103,7 +103,7 @@ static Future<List<dynamic>> getRecordOfFarm(String farmId) async {
       }
     } catch (e) {
       debugPrint('Error fetching transactions: $e');
-      throw e;
+      rethrow;
     }
   }
 
@@ -122,7 +122,7 @@ static Future<List<dynamic>> getRecordOfFarm(String farmId) async {
 
       return jsonDecode(response.body);
     } catch (e) {
-      print('Error creating farm: $e');
+      debugPrint('Error creating farm: $e');
       throw Exception('Failed to create farm: $e');
     }
   }
@@ -150,7 +150,7 @@ static Future<List<dynamic>> getRecordOfFarm(String farmId) async {
         throw Exception('Failed to get user data: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error fetching user data: $e');
+      debugPrint('Error fetching user data: $e');
       throw Exception('Failed to get user data: $e');
     }
   }

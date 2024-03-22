@@ -5,13 +5,13 @@ import 'package:cluck_connect/authentication/signup/farmer_signup.dart';
 
 
 class RoleSelectionScreen extends StatelessWidget {
-  const RoleSelectionScreen({Key? key}) : super(key: key);
+  const RoleSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Choose Your Role'),
+        title: const Text('Choose Your Role'),
       ),
       body: Center(
         child: Column(
@@ -21,20 +21,20 @@ class RoleSelectionScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AgentSignUpScreen()),
+                  MaterialPageRoute(builder: (context) => const AgentSignUpScreen()),
                 );
               },
-              child: Text('I am an Agent'),
+              child: const Text('I am an Agent'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => FarmerSignUpScreen()),
+                  MaterialPageRoute(builder: (context) => const FarmerSignUpScreen()),
                 );
               },
-              child: Text('I am a Farmer'),
+              child: const Text('I am a Farmer'),
             ),
           ],
         ),

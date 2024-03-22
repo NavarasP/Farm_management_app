@@ -17,9 +17,10 @@ class Farmer {
 
 
 class FarmerListPage extends StatefulWidget {
-  const FarmerListPage({Key? key}) : super(key: key);
+  const FarmerListPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FarmerListPageState createState() => _FarmerListPageState();
 }
 
@@ -60,7 +61,7 @@ Future<void> _fetchFarmers() async {
         title: const Text('List of Farmers'),
       ),
       body: _farmers.isEmpty
-        ? Center(
+        ? const Center(
             child: Text(
               'No farmers available',
               style: TextStyle(fontSize: 18),

@@ -6,9 +6,10 @@ import 'package:cluck_connect/services/api/authentication_api.dart';
 import 'package:cluck_connect/services/api_models/farmer_model.dart';
 
 class ProfilePageFarmer extends StatefulWidget {
-  const ProfilePageFarmer({Key? key}) : super(key: key);
+  const ProfilePageFarmer({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ProfilePageFarmerState createState() => _ProfilePageFarmerState();
 }
 
@@ -109,7 +110,7 @@ Future<void> fetchUserData() async {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => UpdateProfileForm()),
+                    MaterialPageRoute(builder: (context) => const UpdateProfileForm()),
                   );
                 },
                 child: const Text('Update Profile'),

@@ -185,8 +185,9 @@ Future<void> signOut(BuildContext context) async {
   
   // Navigate to WelcomeScreen
   Navigator.pushAndRemoveUntil(
+    // ignore: use_build_context_synchronously
     context,
-    MaterialPageRoute(builder: (context) => WelcomeScreen()),
+    MaterialPageRoute(builder: (context) => const WelcomeScreen()),
     (Route<dynamic> route) => false, // Clear the navigation stack
   );
 }

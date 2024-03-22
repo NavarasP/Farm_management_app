@@ -4,9 +4,10 @@ import 'package:cluck_connect/services/api_models/farmer_model.dart';
 import 'package:cluck_connect/farmer/farm_details.dart'; // Import the next page
 
 class StockDetailsPage extends StatefulWidget {
-  const StockDetailsPage({Key? key}) : super(key: key);
+  const StockDetailsPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _StockDetailsPageState createState() => _StockDetailsPageState();
 }
 
@@ -36,12 +37,12 @@ class _StockDetailsPageState extends State<StockDetailsPage> {
 
   Future<List<Farm>> fetchFarms() async {
     try {
-      print('Fetching farms...');
+      debugPrint('Fetching farms...');
       List<Farm> farms = await FarmApi.getListOfFarmsForFarmer();
-      print('Farms fetched: $farms');
+      debugPrint('Farms fetched: $farms');
       return farms;
     } catch (e) {
-      print('Error fetching farms: $e');
+      debugPrint('Error fetching farms: $e');
       debugPrint('Error fetching farms: $e');
       throw Exception('Failed to load farms: $e');
     }
@@ -52,7 +53,7 @@ class _StockDetailsPageState extends State<StockDetailsPage> {
       future: fetchFarms(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -65,7 +66,7 @@ class _StockDetailsPageState extends State<StockDetailsPage> {
                   Farm farm = farms[index];
                   return Card(
                     elevation: 2,
-                    margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     child: ListTile(
                       title: Text(farm.area),
                       onTap: () {
@@ -86,9 +87,9 @@ class _StockDetailsPageState extends State<StockDetailsPage> {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.0),
                 child: Text(
                   'No farms available',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -135,6 +136,7 @@ class _StockDetailsPageState extends State<StockDetailsPage> {
                     setState(() {});
                   } catch (e) {
                     debugPrint('Error creating farm: $e');
+                    // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Error creating farm: $e'),
@@ -143,6 +145,7 @@ class _StockDetailsPageState extends State<StockDetailsPage> {
                     );
                   }
                 }
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
               },
               child: const Text('Submit'),

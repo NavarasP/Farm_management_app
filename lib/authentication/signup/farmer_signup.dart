@@ -4,9 +4,10 @@ import 'package:cluck_connect/authentication/login.dart';
 import 'package:cluck_connect/services/api/authentication_api.dart';
 
 class FarmerSignUpScreen extends StatefulWidget {
-  const FarmerSignUpScreen({Key? key}) : super(key: key);
+  const FarmerSignUpScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FarmerSignUpScreenState createState() => _FarmerSignUpScreenState();
 }
 
@@ -26,7 +27,7 @@ class _FarmerSignUpScreenState extends State<FarmerSignUpScreen> {
       if (agentId.isEmpty) {
         // Show error message if the user doesn't enter an agent ID
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Please enter an agent ID.'),
             duration: Duration(seconds: 2),
           ),
@@ -44,7 +45,7 @@ class _FarmerSignUpScreenState extends State<FarmerSignUpScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Signup failed: ${response['message']}'),
-              duration: Duration(seconds: 2),
+              duration: const Duration(seconds: 2),
             ),
           );
         }
@@ -54,7 +55,7 @@ class _FarmerSignUpScreenState extends State<FarmerSignUpScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Signup error: $error'),
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
           ),
         );
       });
@@ -62,7 +63,7 @@ class _FarmerSignUpScreenState extends State<FarmerSignUpScreen> {
       // Show error message or toast indicating invalid input
       debugPrint("Invalid input or passwords do not match");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Passwords do not match.'),
           duration: Duration(seconds: 2),
         ),

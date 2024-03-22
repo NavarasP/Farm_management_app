@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:cluck_connect/services/widgets.dart';
 import 'package:cluck_connect/authentication/login.dart';
 import 'package:cluck_connect/services/api/authentication_api.dart';
+// ignore_for_file: use_build_context_synchronously
+
 
 class AgentSignUpScreen extends StatefulWidget {
-  const AgentSignUpScreen({Key? key}) : super(key: key);
+  const AgentSignUpScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AgentSignUpScreenState createState() => _AgentSignUpScreenState();
 }
 
@@ -24,7 +27,7 @@ class _AgentSignUpScreenState extends State<AgentSignUpScreen> {
 
 
 
-    if (password == password) {
+    if (password == confirmPassword) {
       try {
         final response =
             await AuthenticationApi.signUp('agent', email, password);
@@ -55,9 +58,9 @@ class _AgentSignUpScreenState extends State<AgentSignUpScreen> {
       debugPrint('nopassmatch');
       // Show error message or toast indicating invalid input
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Passwords do not match.'),
-          duration: const Duration(seconds: 2),
+        const SnackBar(
+          content: Text('Passwords do not match.'),
+          duration: Duration(seconds: 2),
         ),
       );
     }

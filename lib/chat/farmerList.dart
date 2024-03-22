@@ -16,9 +16,10 @@ class Farmer {
 
 
 class FarmerListPage extends StatefulWidget {
-  const FarmerListPage({Key? key}) : super(key: key);
+  const FarmerListPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FarmerListPageState createState() => _FarmerListPageState();
 }
 
