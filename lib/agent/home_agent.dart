@@ -72,7 +72,7 @@ class _HomePageAgentState extends State<HomePageAgent> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Text(
-                              'Welcome to CluckConnect - Your Broiler Farming Companion. '
+                              'Welcome to CluckConnect - Your Broiler Farming Companion.'
                               'Track and manage your broiler farm efficiently with our advanced features and insights.',
                               style: TextStyle(
                                 fontSize: 16,
@@ -207,8 +207,6 @@ class _HomePageAgentState extends State<HomePageAgent> {
             icon: Icon(Icons.details),
             label: 'Me',
           ),
-          
-          
         ],
       ),
     );
