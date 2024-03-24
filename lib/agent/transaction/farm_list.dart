@@ -60,7 +60,19 @@ class _FarmListPageState extends State<FarmListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Farms for ${widget.farmername}'),
+        title: Text('Farms for ${widget.farmername}',style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),),
+          centerTitle: true,
+        backgroundColor: Colors.blue,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
       ),
       body: _farms.isEmpty
         ? Center(

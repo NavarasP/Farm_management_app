@@ -18,7 +18,19 @@ class _StockDetailsPageState extends State<StockDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(selectedFarm != null ? selectedFarm!.area : 'Select Farm'),
+        title: Text(selectedFarm != null ? selectedFarm!.area : 'Select Farm',style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),),
+          centerTitle: true,
+        backgroundColor: Colors.blue,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
       ),
       body: Column(
         children: [

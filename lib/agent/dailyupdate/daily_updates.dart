@@ -25,7 +25,19 @@ class _FarmDetailsPageagentState extends State<FarmDetailsPageagent> with Single
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Farm Details'),
+        title: const Text('Farm Details',style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
         bottom: TabBar(
           controller: _tabController,
           tabs: const [

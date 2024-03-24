@@ -34,10 +34,10 @@ class _HomePageFarmerState extends State<HomePageFarmer > {
                 height: 80,
                 color: Colors.transparent,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'CluckConnect',
                       style: TextStyle(
                         fontSize: 20,
@@ -45,12 +45,12 @@ class _HomePageFarmerState extends State<HomePageFarmer > {
                         color: Color(0xFF1560BD),
                       ),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.menu),
-                      onPressed: () {
-                        debugPrint('Menu button clicked');
-                      },
-                    ),
+                    // IconButton(
+                    //   icon: const Icon(Icons.menu),
+                    //   onPressed: () {
+                    //     debugPrint('Menu button clicked');
+                    //   },
+                    // ),
                   ],
                 ),
               ),

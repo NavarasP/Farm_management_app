@@ -68,7 +68,19 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 231, 237, 241),
       appBar: AppBar(
-        title: const Text('Chat Room'),
+        title: const Text('Chat Room',style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),),
+          centerTitle: true,
+        backgroundColor: Colors.blue,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {

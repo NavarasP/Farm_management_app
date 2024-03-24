@@ -97,7 +97,22 @@ class _ChatUsersPageState extends State<ChatUsersPage> {
           String? myEmail = snapshot.data;
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Chat Users'),
+              title: const Text(
+                'Chat Users',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              centerTitle: true,
+        backgroundColor: Colors.blue,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
             ),
             body: ListView.builder(
               itemCount: _chatRooms.length,
@@ -107,7 +122,6 @@ class _ChatUsersPageState extends State<ChatUsersPage> {
                     .where((user) => user.email != myEmail)
                     .map((user) => user.email)
                     .join(', ');
-
 
                 return ListTile(
                   title: Text(chatUsers),

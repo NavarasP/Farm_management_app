@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cluck_connect/services/api/agent_api.dart'; // Import the API service for fetching farmers
 
-
 class Farmer {
   final String id;
   final String name;
@@ -13,7 +12,6 @@ class Farmer {
     required this.email,
   });
 }
-
 
 class FarmerListPage extends StatefulWidget {
   const FarmerListPage({super.key});
@@ -32,32 +30,48 @@ class _FarmerListPageState extends State<FarmerListPage> {
     _fetchFarmers();
   }
 
-Future<void> _fetchFarmers() async {
-  try {
-    List<Map<String, dynamic>>? farmersData = await AgentApi.fetchFarmers();
-    if (farmersData != null) {
-      List<Farmer> farmers = farmersData.map((data) => Farmer(
-        id: data['_id'],
-        name: data['name'],
-        email: data['email'],
-      )).toList();
-      setState(() {
-        _farmers = farmers;
-      });
-    } else {
-      throw Exception('Failed to fetch farmers');
+  Future<void> _fetchFarmers() async {
+    try {
+      List<Map<String, dynamic>>? farmersData = await AgentApi.fetchFarmers();
+      if (farmersData != null) {
+        List<Farmer> farmers = farmersData
+            .map((data) => Farmer(
+                  id: data['_id'],
+                  name: data['name'],
+                  email: data['email'],
+                ))
+            .toList();
+        setState(() {
+          _farmers = farmers;
+        });
+      } else {
+        throw Exception('Failed to fetch farmers');
+      }
+    } catch (e) {
+      debugPrint("Error fetching farmers: $e");
     }
-  } catch (e) {
-    debugPrint("Error fetching farmers: $e");
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('List of Farmers'),
+        title: const Text(
+          'List of Farmers',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
       ),
       body: ListView.builder(
         itemCount: _farmers.length,

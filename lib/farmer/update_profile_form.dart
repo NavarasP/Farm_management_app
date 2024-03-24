@@ -72,7 +72,7 @@ final phonenumberController = TextEditingController();
                 ),
                 SizedBox(height: size.height * 0.03),
                 GlassInputField(
-                  hintText: "Nameame",
+                  hintText: "Name",
                   controller: nameController,
                 ),
                 SizedBox(height: size.height * 0.03),
