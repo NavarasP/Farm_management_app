@@ -37,12 +37,6 @@ class _IncomePageState extends State<IncomePage> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(250.0),
         child: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.blue),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
           flexibleSpace: Column(
             children: [
               SizedBox(
