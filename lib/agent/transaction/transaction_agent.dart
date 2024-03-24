@@ -43,10 +43,10 @@ class _TransactionPageState extends State<TransactionPage> {
     _loadTransactions();
   }
 
-
   Future<void> _loadTransactions() async {
     try {
-      List<TransactionDetails> transactions = []; // Create an empty list to store transactions
+      List<TransactionDetails> transactions =
+          []; // Create an empty list to store transactions
 
       Map<String, dynamic> transactionsData =
           await AgentApi.getTransaction(widget.farmId);
@@ -63,15 +63,14 @@ class _TransactionPageState extends State<TransactionPage> {
             // Fetch farmer name and add it to transactions list
             Map<String, dynamic> farmerData =
                 await AuthenticationApi.getname(transactionData['farmer']);
-                Map<String, dynamic> farmData =
+            Map<String, dynamic> farmData =
                 await AgentApi.getFarmName(transactionData['farm']);
             transactions.add(TransactionDetails(
               farmerName: farmerData.containsKey('data')
                   ? farmerData['data']
                   : 'Unknown',
-              farmNum: farmData.containsKey('data')
-                  ? farmData['data']
-                  : 'Unknown',
+              farmNum:
+                  farmData.containsKey('data') ? farmData['data'] : 'Unknown',
               datePlaceholder: transactionData['createdAt'],
               amount: double.parse(transactionData['amount'].toString()),
             ));
@@ -79,15 +78,14 @@ class _TransactionPageState extends State<TransactionPage> {
         }
       }
 
-
-    setState(() {
-      _transactions = transactions;
-    });
-  } catch (e) {
-    debugPrint("Error loading transactions: $e");
-    // Optionally, show a snackbar or dialog to inform the user about the error
+      setState(() {
+        _transactions = transactions;
+      });
+    } catch (e) {
+      debugPrint("Error loading transactions: $e");
+      // Optionally, show a snackbar or dialog to inform the user about the error
+    }
   }
-}
 
   Future<void> _submitTransactionData() async {
     debugPrint("button");
@@ -103,11 +101,9 @@ class _TransactionPageState extends State<TransactionPage> {
     debugPrint("finin");
 
     setState(() {
-    _loadTransactions();
+      _loadTransactions();
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -119,13 +115,13 @@ class _TransactionPageState extends State<TransactionPage> {
         children: [
           Expanded(
             child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal, // Scroll horizontally
               child: DataTable(
                 columns: const [
                   DataColumn(label: Text('Farmer Name')),
                   DataColumn(label: Text('Farm Name')),
                   DataColumn(label: Text('Amount')),
                   DataColumn(label: Text('Date')),
-                  
                 ],
                 rows: _transactions.map((transaction) {
                   return DataRow(
@@ -134,7 +130,6 @@ class _TransactionPageState extends State<TransactionPage> {
                       DataCell(Text(transaction.farmNum)),
                       DataCell(Text(transaction.amount.toString())),
                       DataCell(Text(transaction.datePlaceholder)),
-                      
                     ],
                   );
                 }).toList(),
