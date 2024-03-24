@@ -77,25 +77,21 @@ String phone = phonenumberController.text.trim();
                 SizedBox(height: size.height * 0.03),
                 GlassInputField(
                   hintText: "Area",
-                  isPassword: true,
                   controller: areaController,
                 ),
                 SizedBox(height: size.height * 0.03),
                 GlassInputField(
                   hintText: "State",
-                  isPassword: true,
                   controller: stateController,
                 ),
                 SizedBox(height: size.height * 0.03),
                 GlassInputField(
                   hintText: "Gender",
-                  isPassword: true,
                   controller: genderController,
                 ),
                 SizedBox(height: size.height * 0.03),
                 GlassInputField(
                   hintText: "Phone",
-                  isPassword: true,
                   controller: phonenumberController,
                 ),
                 
