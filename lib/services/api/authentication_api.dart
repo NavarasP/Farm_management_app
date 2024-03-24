@@ -37,6 +37,12 @@ class AuthenticationApi {
     return prefs.getString('agentId');
   }
 
+
+    static Future<String?> getuserName() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('username');
+  }
+
   static Future<String?> getAuthToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(authTokenKey);

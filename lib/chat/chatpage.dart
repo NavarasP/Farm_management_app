@@ -1,62 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:cluck_connect/services/api/chat_api.dart';
+import 'package:cluck_connect/services/api/authentication_api.dart';
 
 class ChatRoomScreen extends StatefulWidget {
-  const ChatRoomScreen({super.key, required this.chatRoomId});
+  const ChatRoomScreen({Key? key, required this.chatRoomId}) : super(key: key);
 
   final String chatRoomId;
 
   @override
-  // ignore: library_private_types_in_public_api
   _ChatRoomScreenState createState() => _ChatRoomScreenState();
 }
 
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
   final TextEditingController _messageController = TextEditingController();
-  final List<Message> _messages = [];
+  List<Message> _messages = [];
+  late String? myEmail;
 
   @override
   void initState() {
     super.initState();
-    fetchMessages(
-        widget.chatRoomId); // Fetch messages when the screen is initialized
+    initializeEmail();
+    fetchMessages(widget.chatRoomId);
+  }
+
+  Future<void> initializeEmail() async {
+    myEmail = await AuthenticationApi.getuserName();
   }
 
   void sendMessage(String message) async {
     try {
-      // Send message to the current chat room
       await ChatService.sendMessage(widget.chatRoomId, message);
-      // After sending the message, fetch updated messages
       fetchMessages(widget.chatRoomId);
     } catch (e) {
       debugPrint("Error sending message: $e");
     }
   }
 
- Future<void> fetchMessages(String chatId) async {
-  try {
-    // Fetch all messages of the current chat room
-    final fetchMessagesResponse = await ChatService.fetchChatMessages(chatId);
+  Future<void> fetchMessages(String chatId) async {
+    try {
+      final fetchMessagesResponse =
+          await ChatService.fetchChatMessages(chatId);
+      final List<dynamic> messageData = fetchMessagesResponse['data'];
+      List<Message> messages = messageData
+          .map((messageJson) => Message.fromJson(messageJson))
+          .toList();
+      messages.sort((a, b) =>
+          DateTime.parse(a.created).compareTo(DateTime.parse(b.created)));
 
-    // Check if the response is a Map<String, dynamic>
-    // Extract the 'data' field from the response
-    final List<dynamic> messageData = fetchMessagesResponse['data'];
-
-    // Convert each message data into a Message object and add it to _messages list
-    List<Message> messages = messageData.map((messageJson) => Message.fromJson(messageJson)).toList();
-
-    // Sort the messages based on the 'created' field
-    messages.sort((a, b) => DateTime.parse(a.created).compareTo(DateTime.parse(b.created)));
-
-    setState(() {
-      _messages.clear();
-      _messages.addAll(messages);
-    });
+      setState(() {
+        _messages = messages;
+      });
     } catch (e) {
-    debugPrint("Error fetching messages: $e");
+      debugPrint("Error fetching messages: $e");
+    }
   }
-}
-
 
   void _sendMessage() {
     String messageText = _messageController.text.trim();
@@ -90,26 +87,55 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     ),
                   )
                 : ListView.builder(
-                    itemCount: _messages.length,
-                    itemBuilder: (context, index) {
-                      var message = _messages[index];
-                      return Align(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          margin: const EdgeInsets.all(8.0),
-                          padding: const EdgeInsets.all(12.0),
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Text(
-                            '${message.senderEmail}: ${message.content}',
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+  itemCount: _messages.length,
+  itemBuilder: (context, index) {
+    var message = _messages[index];
+    final isMyMessage =
+        message.senderEmail == myEmail; // Awaited value
+    return Align(
+      alignment: isMyMessage
+          ? Alignment.centerRight
+          : Alignment.centerLeft,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 4.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+        decoration: BoxDecoration(
+          color: isMyMessage ? Colors.blue : Colors.grey[300],
+          borderRadius: BorderRadius.only(
+            topLeft: isMyMessage ? Radius.circular(12.0) : Radius.circular(0),
+            topRight: isMyMessage ? Radius.circular(0) : Radius.circular(12.0),
+            bottomLeft: Radius.circular(12.0),
+            bottomRight: Radius.circular(12.0),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              isMyMessage ? 'You' : message.senderEmail,
+              style: TextStyle(
+                color: isMyMessage ? Colors.white : Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 14.0, // Smaller font size for sender's name
+              ),
+            ),
+            SizedBox(height: 4.0), // Add some spacing between name and message
+            Text(
+              message.content,
+              style: TextStyle(
+                color: isMyMessage ? Colors.white : Colors.black,
+                fontSize: 16.0, // Regular font size for message content
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  },
+),
+
+
+
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -155,7 +181,10 @@ class Message {
   final String content;
   final String created;
 
-  Message( {required this.senderEmail, required this.content, required this.created});
+  Message(
+      {required this.senderEmail,
+      required this.content,
+      required this.created});
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(

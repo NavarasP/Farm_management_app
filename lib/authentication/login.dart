@@ -24,28 +24,24 @@ class _LoginPageState extends State<LoginPage> {
     if (username.isNotEmpty && password.isNotEmpty) {
       AuthenticationApi().signIn(username, password).then((_) {
         AuthenticationApi.getUserDetails().then((userDetails) {
-          String? userType = userDetails['role']; // Nullable string
+          String? userType = userDetails['role']; 
           if (userType == 'farmer') {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => const HomePageFarmer ()));
           } else if (userType == 'agent') {
-            // Navigate to agent home page
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const HomePageAgent()));
           } else {
             debugPrint(userType);
-            // Handle unknown user type
             debugPrint("Unknown user type");
           }
         });
       }).catchError((error) {
-        // Handle error
         debugPrint("Signin Error: $error");
       });
     } else {
-      // Show error message or toast indicating invalid input
       debugPrint("Invalid username or password");
     }
   }

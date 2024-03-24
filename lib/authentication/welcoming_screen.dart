@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cluck_connect/authentication/login.dart';
-// import 'package:cluck_connect/farmer/login_farmer.dart';
 
 
 class WelcomeScreen extends StatelessWidget {
@@ -45,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 3,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("welcoming.png"))),
+                        image: AssetImage("assets/welcoming.png"))),
               ),
               Column(
                 children: <Widget>[
