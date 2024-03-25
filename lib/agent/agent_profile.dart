@@ -124,9 +124,13 @@ Future<void> fetchUserData() async {
                 
               ),
                             const SizedBox(width: 20),
+                                        if (profileDetails != null) ...[
+
               _buildCopyAgentIdButton(profileDetails!.id),
 
-              
+              ] else ...[
+              const CircularProgressIndicator(), 
+            ],
             ],
           ),
         ),
